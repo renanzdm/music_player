@@ -1,0 +1,5 @@
+lib/app/modules/list_musics/list_musics_module.dart
+lib/app/modules/list_musics/list_musics_page.dart
+test/app/modules/list_musics/list_musics_page_test.dart
+lib/app/modules/list_musics/list_musics_controller.dart
+test/app/modules/list_musics/list_musics_controller_test.dart
