@@ -1,4 +1,6 @@
 import 'package:mobx/mobx.dart';
+import 'package:musicplayer/app/shared/model/video_model.dart';
+import 'package:musicplayer/app/shared/video_repository.dart';
 
 part 'list_music_controller.g.dart';
 
@@ -6,15 +8,18 @@ class ListMusicController = _ListMusicsControllerBase
     with _$ListMusicController;
 
 abstract class _ListMusicsControllerBase with Store {
-  _ListMusicsControllerBase() {
-    print('teste');
+  final VideoRepository _videoRepository;
+
+  _ListMusicsControllerBase(this._videoRepository) {
+    addVideo();
   }
 
   @observable
-  int value = 0;
+  List<VideoModel> videos;
 
   @action
-  void increment() {
-    value++;
+  addVideo() async {
+    videos = await _videoRepository.getVideos();
+    print(videos);
   }
 }

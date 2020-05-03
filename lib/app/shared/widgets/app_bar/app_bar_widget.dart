@@ -39,7 +39,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
               ),
               ButtonWidget(
                 onTap: () {
-                  Modular.to.pushNamed('/listmusic');
+                  Modular.to.pushNamed('/listMusic');
                 },
                 icon: Icons.dehaze,
                 heigth: itemHeight,

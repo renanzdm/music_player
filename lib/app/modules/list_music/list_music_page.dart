@@ -6,6 +6,7 @@ import 'list_music_controller.dart';
 
 class ListMusicPage extends StatefulWidget {
   final String title;
+
   const ListMusicPage({Key key, this.title = "ListMusic"}) : super(key: key);
 
   @override
@@ -20,19 +21,24 @@ class _ListMusicPageState
   Widget build(BuildContext context) {
     var sizes = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: backgroundColor,
-        appBar: AppBar(
-          title: Text(widget.title),
+      backgroundColor: backgroundColor,
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Container(
+        height: sizes.height,
+        child: ListView.builder(
+          itemCount: 20,
+          itemBuilder: (context, index) {
+            return ListTile(
+              onTap: () async {
+                Modular.to.pushNamed(Modular.initialRoute);
+              },
+              title: Text('Text$index'),
+            );
+          },
         ),
-        body: Container(
-          height: sizes.height,
-          child: ListView.builder(
-              itemCount: 20,
-              itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text('Text$index'),
-                );
-              }),
-        ));
+      ),
+    );
   }
 }
