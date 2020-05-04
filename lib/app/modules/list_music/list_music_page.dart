@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:musicplayer/app/shared/utils/colors.dart';
+import 'package:musicplayer/app/shared/widgets/video_tile/video_tile_widget.dart';
 
+import '../../shared/model/video_model.dart';
 import 'list_music_controller.dart';
 
 class ListMusicPage extends StatefulWidget {
@@ -27,15 +30,24 @@ class _ListMusicPageState
       ),
       body: Container(
         height: sizes.height,
-        child: ListView.builder(
-          itemCount: 20,
-          itemBuilder: (context, index) {
-            return ListTile(
-              onTap: () async {
-                Modular.to.pushNamed(Modular.initialRoute);
-              },
-              title: Text('Text$index'),
-            );
+        child: Observer(
+          builder: (_) {
+            List<VideoModel> videos = controller.videos;
+            if (videos != null) {
+              return ListView.builder(
+                itemCount: videos.length,
+                itemBuilder: (context, index) {
+                  return VideoTileWidget(
+                    title: videos[index].title,
+                    imgUrl: videos[index].thumb,
+                    channel: videos[index].channel,
+                    videoId: videos[index].id,
+                  );
+                },
+              );
+            } else {
+              return Center(child: CircularProgressIndicator());
+            }
           },
         ),
       ),

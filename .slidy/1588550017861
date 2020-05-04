@@ -1,0 +1,4 @@
+lib/app/shared/widgets/video_tile/video_tile_widget.dart
+test/app/shared/widgets/video_tile/video_tile_widget_test.dart
+lib/app/shared/widgets/video_tile/video_tile_controller.dart
+test/app/shared/widgets/video_tile/video_tile_controller_test.dart

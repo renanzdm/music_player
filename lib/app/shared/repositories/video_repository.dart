@@ -8,7 +8,7 @@ class VideoRepository extends Disposable {
 
   VideoRepository(this.client);
 
-  Future<List<VideoModel>> getVideos() async {
+  Future<List<VideoModel>> fetchVideos() async {
     final response = await client.get(
         'https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&key=$APIKEY&maxResults=10');
     return (response.data["items"] as List)
