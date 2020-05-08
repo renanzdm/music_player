@@ -17,7 +17,9 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
-  flutter_youtube: ^2.0.0
+  flutter_audio_query: ^0.3.4+2
+  audioplayers: ^0.15.1
+  path_provider: ^1.6.7
   effective_dart: ^1.2.1
   dio: ^3.0.9
   flutter_mobx: ^1.1.0

@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'video_tile_controller.dart';
+part of 'album_card_controller.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,8 +8,8 @@ part of 'video_tile_controller.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$VideoTileController on _VideoTileControllerBase, Store {
-  final _$valueAtom = Atom(name: '_VideoTileControllerBase.value');
+mixin _$AlbumCardController on _AlbumCardControllerBase, Store {
+  final _$valueAtom = Atom(name: '_AlbumCardControllerBase.value');
 
   @override
   int get value {
@@ -26,17 +26,17 @@ mixin _$VideoTileController on _VideoTileControllerBase, Store {
     }, _$valueAtom, name: '${_$valueAtom.name}_set');
   }
 
-  final _$_VideoTileControllerBaseActionController =
-      ActionController(name: '_VideoTileControllerBase');
+  final _$_AlbumCardControllerBaseActionController =
+      ActionController(name: '_AlbumCardControllerBase');
 
   @override
   void increment() {
     final _$actionInfo =
-        _$_VideoTileControllerBaseActionController.startAction();
+        _$_AlbumCardControllerBaseActionController.startAction();
     try {
       return super.increment();
     } finally {
-      _$_VideoTileControllerBaseActionController.endAction(_$actionInfo);
+      _$_AlbumCardControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 

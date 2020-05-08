@@ -1,0 +1,4 @@
+lib/app/shared/widgets/album_card/album_card_widget.dart
+test/app/shared/widgets/album_card/album_card_widget_test.dart
+lib/app/shared/widgets/album_card/album_card_controller.dart
+test/app/shared/widgets/album_card/album_card_controller_test.dart

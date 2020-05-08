@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:musicplayer/app/shared/utils/colors.dart';
 import 'package:musicplayer/app/shared/widgets/app_bar/app_bar_widget.dart';
 import 'package:musicplayer/app/shared/widgets/button/buttom_widget.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'home_controller.dart';
 
@@ -18,8 +21,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends ModularState<HomePage, HomeController> {
   double changedValue = 0;
+  Future<Directory> _externalDocumentsDirectory;
 
-  //use 'controller' variable to access controller
+  void _requestExternalStorageDirectory() async {
+    _externalDocumentsDirectory = getExternalStorageDirectory();
+    var path = await _externalDocumentsDirectory;
+    print(path.absolute.path);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +90,9 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                   width: 60,
                 ),
                 ButtonWidget.color(
-                  onTap: () {},
+                  onTap: () async {
+                    _requestExternalStorageDirectory();
+                  },
                   icon: Icons.play_arrow,
                   heigth: 60,
                   width: 60,

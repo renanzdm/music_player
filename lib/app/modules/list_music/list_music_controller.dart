@@ -1,26 +1,13 @@
 import 'package:mobx/mobx.dart';
-import 'package:musicplayer/app/shared/model/video_model.dart';
-import 'package:musicplayer/app/shared/repositories/video_repository.dart';
-
 
 part 'list_music_controller.g.dart';
 
-class ListMusicController = _ListMusicsControllerBase
-    with _$ListMusicController;
+class ListMusicController = _ListMusicControllerBase with _$ListMusicController;
 
-abstract class _ListMusicsControllerBase with Store {
-  final VideoRepository _videoRepository;
-
-  _ListMusicsControllerBase(this._videoRepository) {
-    getVideo();
-  }
-
+abstract class _ListMusicControllerBase with Store {
+  Duration duration = Duration(milliseconds: 500);
   @observable
-  List<VideoModel> videos;
-
+  int currentPage = 0;
   @action
-  getVideo() async {
-    videos = await _videoRepository.fetchVideos();
-    print(videos);
-  }
+  setPage(int value) => currentPage = value;
 }

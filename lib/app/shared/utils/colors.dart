@@ -1,7 +1,6 @@
 import 'dart:ui';
 
-const Color backgroundColor = Color(0xFF32373d);
+import 'package:flutter/material.dart';
+
+const Color backgroundColor = Color(0xFFF7F9F9);
 const Color textColor = Color(0xFF707376);
-String APIKEY = 'AIzaSyCy8Q7jr_-xJtcNcRRhDIlVEqZxw0S9ahw';
-String url =
-    'https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&key=AIzaSyCy8Q7jr_-xJtcNcRRhDIlVEqZxw0S9ahw';
