@@ -1,18 +1,15 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:musicplayer/app/shared/utils/colors.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:musicplayer/app/modules/album/album_module.dart';
+import 'package:musicplayer/app/modules/artist/artist_module.dart';
+import 'package:musicplayer/app/modules/genre/genre_module.dart';
+import 'package:musicplayer/app/modules/music/music_module.dart';
 import 'package:musicplayer/app/shared/widgets/app_bar/app_bar_widget.dart';
-import 'package:musicplayer/app/shared/widgets/button/buttom_widget.dart';
-import 'package:path_provider/path_provider.dart';
-
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
-
   const HomePage({Key key, this.title = "Home"}) : super(key: key);
 
   @override
@@ -20,93 +17,65 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends ModularState<HomePage, HomeController> {
-  double changedValue = 0;
-  Future<Directory> _externalDocumentsDirectory;
-
-  void _requestExternalStorageDirectory() async {
-    _externalDocumentsDirectory = getExternalStorageDirectory();
-    var path = await _externalDocumentsDirectory;
-    print(path.absolute.path);
-  }
+  //use 'controller' variable to access controller
 
   @override
   Widget build(BuildContext context) {
-    var sizes = MediaQuery.of(context).size;
-    return Scaffold(
-      backgroundColor: backgroundColor,
-      appBar: AppBarWidget(
-        height: 60,
-      ),
-      body: Column(
-        children: <Widget>[
-          Center(
-            child: ButtonWidget(
-              width: sizes.width * 0.7,
-              heigth: sizes.height * 0.4,
+    return DefaultTabController(
+      length: 4,
+      child: Scaffold(
+        appBar: AppBarWidget(
+          height: 50,
+        ),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Text(
+                'Biblioteca',
+                style: GoogleFonts.roboto(fontSize: 24, color: Colors.grey.shade700),
+              ),
             ),
-          ),
-          Text.rich(
-            TextSpan(
-              children: <TextSpan>[
-                TextSpan(
-                  style: TextStyle(
-                      fontSize: 24,
-                      color: textColor,
-                      fontWeight: FontWeight.bold),
-                  text: 'A ele a Glória',
-                ),
-                TextSpan(
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: textColor,
-                      fontWeight: FontWeight.w300),
-                  text: '\n Diante do Trono',
-                ),
-              ],
+            TabBar(
+                indicatorSize: TabBarIndicatorSize.label,
+                labelStyle: GoogleFonts.roboto(fontWeight: FontWeight.w400),
+                labelColor: Colors.grey.shade700,
+                unselectedLabelColor: Colors.grey.shade400,
+                tabs: [
+                  Tab(
+                    text: 'Album',
+                  ),
+                  Tab(
+                    text: 'Artista',
+                  ),
+                  Tab(
+                    text: 'Musicas',
+                  ),
+                  Tab(
+                    text: 'Gêneros',
+                  ),
+                ]),
+            Expanded(
+              child: TabBarView(
+                children: <Widget>[
+                  RouterOutlet(
+                    module: AlbumModule(),
+                  ),
+                  RouterOutlet(
+                    module: ArtistModule(),
+                  ),
+                  RouterOutlet(
+                    module: MusicModule(),
+                  ),
+                  RouterOutlet(
+                    module: GenreModule(),
+                  ),
+                ],
+              ),
             ),
-            textAlign: TextAlign.center,
-          ),
-          Spacer(),
-          Slider(
-            max: 1,
-            min: 0,
-            activeColor: Colors.deepOrange,
-            value: changedValue,
-            onChanged: (value) {
-              setState(() {
-                changedValue = value;
-              });
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                ButtonWidget(
-                  onTap: () {},
-                  icon: Icons.fast_rewind,
-                  heigth: 60,
-                  width: 60,
-                ),
-                ButtonWidget.color(
-                  onTap: () async {
-                    _requestExternalStorageDirectory();
-                  },
-                  icon: Icons.play_arrow,
-                  heigth: 60,
-                  width: 60,
-                ),
-                ButtonWidget(
-                  onTap: () {},
-                  icon: Icons.fast_forward,
-                  heigth: 60,
-                  width: 60,
-                ),
-              ],
-            ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

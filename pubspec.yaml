@@ -17,10 +17,7 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
-  flutter_audio_query: ^0.3.4+2
-  audioplayers: ^0.15.1
-  path_provider: ^1.6.7
-  effective_dart: ^1.2.1
+  google_fonts: ^1.0.0
   dio: ^3.0.9
   flutter_mobx: ^1.1.0
   mobx: ^1.1.1

@@ -1,0 +1,5 @@
+lib/app/modules/genre/genre_module.dart
+lib/app/modules/genre/genre_page.dart
+test/app/modules/genre/genre_page_test.dart
+lib/app/modules/genre/genre_controller.dart
+test/app/modules/genre/genre_controller_test.dart
