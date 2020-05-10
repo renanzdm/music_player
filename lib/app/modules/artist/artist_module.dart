@@ -1,4 +1,4 @@
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/material.dart';
 import 'package:musicplayer/app/modules/artist/artist_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:musicplayer/app/modules/artist/artist_page.dart';
@@ -17,6 +17,5 @@ class ArtistModule extends ModuleWidget {
   static Inject get to => Inject<ArtistModule>.of();
 
   @override
-  // TODO: implement view
   Widget get view => ArtistPage();
 }

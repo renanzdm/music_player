@@ -1,0 +1,4 @@
+lib/app/shared/widget/playlist/playlist_widget.dart
+test/app/shared/widget/playlist/playlist_widget_test.dart
+lib/app/shared/widget/playlist/playlist_controller.dart
+test/app/shared/widget/playlist/playlist_controller_test.dart

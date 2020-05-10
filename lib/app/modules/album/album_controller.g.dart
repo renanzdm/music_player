@@ -9,39 +9,33 @@ part of 'album_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$AlbumController on _AlbumControllerBase, Store {
-  final _$valueAtom = Atom(name: '_AlbumControllerBase.value');
+  final _$listAlbunsAtom = Atom(name: '_AlbumControllerBase.listAlbuns');
 
   @override
-  int get value {
-    _$valueAtom.context.enforceReadPolicy(_$valueAtom);
-    _$valueAtom.reportObserved();
-    return super.value;
+  List<AlbumInfo> get listAlbuns {
+    _$listAlbunsAtom.context.enforceReadPolicy(_$listAlbunsAtom);
+    _$listAlbunsAtom.reportObserved();
+    return super.listAlbuns;
   }
 
   @override
-  set value(int value) {
-    _$valueAtom.context.conditionallyRunInAction(() {
-      super.value = value;
-      _$valueAtom.reportChanged();
-    }, _$valueAtom, name: '${_$valueAtom.name}_set');
+  set listAlbuns(List<AlbumInfo> value) {
+    _$listAlbunsAtom.context.conditionallyRunInAction(() {
+      super.listAlbuns = value;
+      _$listAlbunsAtom.reportChanged();
+    }, _$listAlbunsAtom, name: '${_$listAlbunsAtom.name}_set');
   }
 
-  final _$_AlbumControllerBaseActionController =
-      ActionController(name: '_AlbumControllerBase');
+  final _$getAlbumDataAsyncAction = AsyncAction('getAlbumData');
 
   @override
-  void increment() {
-    final _$actionInfo = _$_AlbumControllerBaseActionController.startAction();
-    try {
-      return super.increment();
-    } finally {
-      _$_AlbumControllerBaseActionController.endAction(_$actionInfo);
-    }
+  Future getAlbumData() {
+    return _$getAlbumDataAsyncAction.run(() => super.getAlbumData());
   }
 
   @override
   String toString() {
-    final string = 'value: ${value.toString()}';
+    final string = 'listAlbuns: ${listAlbuns.toString()}';
     return '{$string}';
   }
 }
