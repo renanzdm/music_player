@@ -9,7 +9,7 @@ class BottomAppBarWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.all(4.0),
+            padding: const EdgeInsets.symmetric(horizontal:10.0),
             child: Text.rich(
               TextSpan(
                 text: 'Nome da música',

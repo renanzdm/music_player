@@ -27,6 +27,8 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
       child: Scaffold(
         appBar: AppBarWidget(
           height: 50,
+          iconLeft: Icons.search,
+          iconRigth: Icons.more_vert,
         ),
         bottomNavigationBar: BottomAppBarWidget(),
         body: Column(

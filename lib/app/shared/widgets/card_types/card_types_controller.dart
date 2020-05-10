@@ -5,5 +5,5 @@ part 'card_types_controller.g.dart';
 class CardTypesController = _CardTypesControllerBase with _$CardTypesController;
 
 abstract class _CardTypesControllerBase with Store {
-  final Duration duration = Duration(milliseconds: 600);
+
 }

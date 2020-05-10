@@ -37,8 +37,8 @@ class PlaylistWidget extends StatelessWidget {
                         color: Colors.red,
                       ),
                       leading: Container(
-                        height: 40,
-                        width: 40,
+                        height: 35,
+                        width: 35,
                         child: Icon(
                           Icons.playlist_add_check,
                           color: Colors.indigo.shade600,
@@ -46,7 +46,7 @@ class PlaylistWidget extends StatelessWidget {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(
-                              color: Colors.indigoAccent,
+                              color: Colors.indigoAccent.shade200,
                               width: 2,
                               style: BorderStyle.solid),
                         ),

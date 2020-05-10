@@ -1,3 +1,4 @@
+import 'package:musicplayer/app/modules/details/details_module.dart';
 import 'package:musicplayer/app/shared/widgets/bottom_app_bar/bottom_app_bar_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -19,6 +20,7 @@ class AppModule extends MainModule {
   @override
   List<Router> get routers => [
         Router(Modular.initialRoute, module: HomeModule()),
+        Router('/details',module: DetailsModule())
       ];
 
   @override
