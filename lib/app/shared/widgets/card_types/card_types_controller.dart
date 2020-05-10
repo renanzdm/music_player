@@ -5,11 +5,5 @@ part 'card_types_controller.g.dart';
 class CardTypesController = _CardTypesControllerBase with _$CardTypesController;
 
 abstract class _CardTypesControllerBase with Store {
-  @observable
-  int value = 0;
-
-  @action
-  void increment() {
-    value++;
-  }
+  final Duration duration = Duration(milliseconds: 600);
 }

@@ -24,28 +24,33 @@ class PlaylistWidget extends StatelessWidget {
                 itemCount: 10,
                 itemBuilder: (_, index) {
                   return ListTile(
-                    title: Text(
-                      'Titulo Playlist',
-                      style: GoogleFonts.roboto(
-                        color: Colors.grey.shade700,
-                        fontWeight: FontWeight.w400,
+                      title: Text(
+                        'Titulo Playlist',
+                        style: GoogleFonts.roboto(
+                          color: Colors.grey.shade700,
+                          fontWeight: FontWeight.w400,
+                        ),
                       ),
-                    ),
-                    subtitle: Text('Songs'),
-                    trailing: Icon(
-                      Icons.favorite_border,
-                      color: Colors.grey.shade400,
-                    ),
-                    leading: CircleAvatar(
-                      radius: 15,
-                      backgroundColor: Colors.blueAccent,
-                      child: Icon(
-                        Icons.play_arrow,
-                        color: Colors.grey.shade100,
-                        size: 14,
+                      subtitle: Text('Songs'),
+                      trailing: Icon(
+                        Icons.favorite_border,
+                        color: Colors.red,
                       ),
-                    ),
-                  );
+                      leading: Container(
+                        height: 40,
+                        width: 40,
+                        child: Icon(
+                          Icons.playlist_add_check,
+                          color: Colors.indigo.shade600,
+                        ),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                              color: Colors.indigoAccent,
+                              width: 2,
+                              style: BorderStyle.solid),
+                        ),
+                      ));
                 }),
           ),
         ],

@@ -15,7 +15,30 @@ class AlbumPage extends StatefulWidget {
 }
 
 class _AlbumPageState extends ModularState<AlbumPage, AlbumController> {
+  String message;
+
   //use 'controller' variable to access controller
+
+  // _onStartScroll(ScrollMetrics metrics) {
+  //   setState(() {
+  //     message = "Scroll Start";
+  //     print(message);
+  //   });
+  // }
+
+  _onUpdateScroll(ScrollMetrics metrics) {
+    setState(() {
+      message = "Scroll Update";
+      print(message);
+    });
+  }
+
+  // _onEndScroll(ScrollMetrics metrics) {
+  //   setState(() {
+  //     message = "Scroll End";
+  //     print(message);
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -33,16 +56,23 @@ class _AlbumPageState extends ModularState<AlbumPage, AlbumController> {
                   builder: (_) {
                     List<AlbumInfo> list = controller.listAlbuns;
                     if (list != null) {
-                      return ListView.builder(
-                        itemCount: list.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (_, index) {
-                          return CardTypesWidget(
-                            width: width * 0.5,
-                            title: list[index].title,
-                            backgroundImage: list[index].albumArt,
-                          );
+                      return NotificationListener<ScrollNotification>(
+                        onNotification: (scrollNotification) {
+                          if (scrollNotification is ScrollStartNotification) {
+                            return _onUpdateScroll(scrollNotification.metrics);
+                          }
                         },
+                        child: ListView.builder(
+                          itemCount: list.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (_, index) {
+                            return CardTypesWidget(
+                              width: width * 0.5,
+                              title: list[index].title,
+                              backgroundImage: list[index].albumArt,
+                            );
+                          },
+                        ),
                       );
                     } else {
                       return Center(

@@ -12,18 +12,18 @@ class BottomAppBarWidget extends StatelessWidget {
             padding: const EdgeInsets.all(4.0),
             child: Text.rich(
               TextSpan(
-                text: 'Tocando Agora',
+                text: 'Nome da música',
                 style: GoogleFonts.roboto(
                     color: Colors.grey.shade800,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18),
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16),
                 children: [
                   TextSpan(
-                    text: '\nNome da música',
+                    text: '\nNome do Artista',
                     style: GoogleFonts.roboto(
                         color: Colors.grey.shade600,
                         fontWeight: FontWeight.w300,
-                        fontSize: 14),
+                        fontSize: 12),
                   ),
                 ],
               ),

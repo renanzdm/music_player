@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:musicplayer/app/shared/widgets/card_types/card_types_controller.dart';
 
-class CardTypesWidget extends StatelessWidget {
+class CardTypesWidget extends StatefulWidget {
   final double height;
   final double width;
   final String title;
@@ -12,18 +14,26 @@ class CardTypesWidget extends StatelessWidget {
   const CardTypesWidget(
       {Key key, this.height, this.width, this.title, this.backgroundImage})
       : super(key: key);
+
+  @override
+  _CardTypesWidgetState createState() => _CardTypesWidgetState();
+}
+
+class _CardTypesWidgetState
+    extends ModularState<CardTypesWidget, CardTypesController> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      width: width,
+    return AnimatedContainer(
+      duration: controller.duration,
+      height: widget.height,
+      width: widget.width,
       margin: EdgeInsets.all(15),
       decoration: BoxDecoration(
         color: Colors.indigo,
         borderRadius: BorderRadius.circular(16),
         image: DecorationImage(
-            image: (backgroundImage != null)
-                ? FileImage(File(backgroundImage))
+            image: (widget.backgroundImage != null)
+                ? FileImage(File(widget.backgroundImage))
                 : AssetImage(
                     'assets/note.png',
                   ),
@@ -34,7 +44,7 @@ class CardTypesWidget extends StatelessWidget {
       child: Container(
         alignment: Alignment.center,
         child: Text(
-          title.toUpperCase(),
+          widget.title.toUpperCase(),
           style: GoogleFonts.roboto(
               color: Colors.grey.shade100,
               fontWeight: FontWeight.bold,
@@ -43,7 +53,7 @@ class CardTypesWidget extends StatelessWidget {
           maxLines: 2,
           textAlign: TextAlign.center,
         ),
-        width: width,
+        width: widget.width,
         height: 50,
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(0.4),
