@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_audio_query/flutter_audio_query.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:musicplayer/app/shared/widgets/app_bar/app_bar_widget.dart';
@@ -8,8 +10,9 @@ import 'details_controller.dart';
 
 class DetailsPage extends StatefulWidget {
   final String title;
-  final String tagHero;
-  const DetailsPage({Key key, this.title = "Details", this.tagHero})
+  final AlbumInfo albumInfo;
+
+  const DetailsPage({Key key, this.title = "Details", this.albumInfo})
       : super(key: key);
 
   @override
@@ -20,10 +23,16 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsController> {
   //use 'controller' variable to access controller
 
   @override
+  void initState() {
+    super.initState();
+    controller.getSongs(widget.albumInfo.id);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(
-        height: 40,
+        height: 50,
         iconLeft: Icons.arrow_back_ios,
         iconRigth: Icons.search,
         onTapLeft: () {
@@ -47,24 +56,21 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsController> {
                       height: height * 0.3,
                       width: width * 0.3,
                     ),
-                    Hero(
-                      tag: widget.tagHero,
-                      child: Container(
-                        margin: EdgeInsets.symmetric(vertical: 12),
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: (widget.tagHero != null)
-                                    ? FileImage(File(widget.tagHero))
-                                    : AssetImage(
-                                        'assets/note.png',
-                                      ),
-                                fit: BoxFit.fill,
-                                alignment: Alignment.center),
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.indigoAccent),
-                        height: height * 0.35,
-                        width: width * 0.9,
-                      ),
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: 12),
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: (widget.albumInfo.albumArt != null)
+                                  ? FileImage(File(widget.albumInfo.albumArt))
+                                  : AssetImage(
+                                      'assets/note.png',
+                                    ),
+                              fit: BoxFit.fill,
+                              alignment: Alignment.center),
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.indigoAccent),
+                      height: height * 0.30,
+                      width: width * 0.9,
                     ),
                     Container(
                       decoration: BoxDecoration(
@@ -76,22 +82,40 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsController> {
                 ),
               ),
               Container(
-                child: ListView.builder(
-                  itemCount: 10,
-                  itemBuilder: (context, index) => ListTile(
-                    title: Text(
-                      'Nome da Música',
-                      style: GoogleFonts.openSansCondensed(fontSize: 18),
-                    ),
-                    subtitle:
-                        Text('data', style: GoogleFonts.openSansCondensed()),
-                    trailing: Icon(Icons.more_vert),
-                    leading: CircleAvatar(
-                      radius: 30,
-                    ),
-                  ),
-                ),
                 height: height * 0.6,
+                child: Observer(
+                  builder: (_) {
+                    List<SongInfo> list = controller.songs;
+                    if (list != null) {
+                      return ListView.builder(
+                        itemCount: list.length,
+                        itemBuilder: (context, index) => ListTile(
+                          title: Text(
+                            list[index].title,
+                            style: GoogleFonts.openSansCondensed(fontSize: 18),
+                          ),
+                          subtitle: Text(list[index].artist,
+                              style: GoogleFonts.openSansCondensed()),
+                          trailing: Icon(Icons.more_vert),
+                          leading: CircleAvatar(
+                              backgroundImage: widget.albumInfo.albumArt != null
+                                  ? FileImage(
+                                      File(
+                                        widget.albumInfo.albumArt,
+                                      ),
+                                      scale: 1)
+                                  : AssetImage(
+                                      'assets/note.png',
+                                    )),
+                        ),
+                      );
+                    } else {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  },
+                ),
               ),
             ],
           );

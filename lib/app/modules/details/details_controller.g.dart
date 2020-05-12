@@ -9,39 +9,33 @@ part of 'details_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$DetailsController on _DetailsControllerBase, Store {
-  final _$valueAtom = Atom(name: '_DetailsControllerBase.value');
+  final _$songsAtom = Atom(name: '_DetailsControllerBase.songs');
 
   @override
-  int get value {
-    _$valueAtom.context.enforceReadPolicy(_$valueAtom);
-    _$valueAtom.reportObserved();
-    return super.value;
+  List<SongInfo> get songs {
+    _$songsAtom.context.enforceReadPolicy(_$songsAtom);
+    _$songsAtom.reportObserved();
+    return super.songs;
   }
 
   @override
-  set value(int value) {
-    _$valueAtom.context.conditionallyRunInAction(() {
-      super.value = value;
-      _$valueAtom.reportChanged();
-    }, _$valueAtom, name: '${_$valueAtom.name}_set');
+  set songs(List<SongInfo> value) {
+    _$songsAtom.context.conditionallyRunInAction(() {
+      super.songs = value;
+      _$songsAtom.reportChanged();
+    }, _$songsAtom, name: '${_$songsAtom.name}_set');
   }
 
-  final _$_DetailsControllerBaseActionController =
-      ActionController(name: '_DetailsControllerBase');
+  final _$getSongsAsyncAction = AsyncAction('getSongs');
 
   @override
-  void increment() {
-    final _$actionInfo = _$_DetailsControllerBaseActionController.startAction();
-    try {
-      return super.increment();
-    } finally {
-      _$_DetailsControllerBaseActionController.endAction(_$actionInfo);
-    }
+  Future getSongs(String albumId) {
+    return _$getSongsAsyncAction.run(() => super.getSongs(albumId));
   }
 
   @override
   String toString() {
-    final string = 'value: ${value.toString()}';
+    final string = 'songs: ${songs.toString()}';
     return '{$string}';
   }
 }

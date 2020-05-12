@@ -15,8 +15,6 @@ class AlbumPage extends StatefulWidget {
 }
 
 class _AlbumPageState extends ModularState<AlbumPage, AlbumController> {
-  String message;
-  bool state = false;
   //use 'controller' variable to access controller
 
   @override
@@ -41,8 +39,9 @@ class _AlbumPageState extends ModularState<AlbumPage, AlbumController> {
                         itemBuilder: (_, index) {
                           return CardTypesWidget(
                             width: width * 0.5,
-                            title: list[index].title,
-                            backgroundImage: list[index].albumArt,
+                            // albumTitle: list[index].title,
+                            // backgroundImage: list[index].albumArt,
+                            albumInfo: list[index],
                           );
                         },
                       );

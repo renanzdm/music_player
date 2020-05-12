@@ -22,7 +22,8 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          InkWell(
+          GestureDetector(
+            behavior: HitTestBehavior.translucent,
             onTap: onTapLeft,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -32,7 +33,8 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
           ),
-          InkWell(
+          GestureDetector(
+            behavior: HitTestBehavior.translucent,
             onTap: onTapRigth,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
