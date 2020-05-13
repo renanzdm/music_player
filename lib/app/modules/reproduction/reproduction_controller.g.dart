@@ -47,8 +47,8 @@ mixin _$ReproductionController on _ReproductionControllerBase, Store {
   final _$playLocalAsyncAction = AsyncAction('playLocal');
 
   @override
-  Future playLocal(String localPath) {
-    return _$playLocalAsyncAction.run(() => super.playLocal(localPath));
+  Future playSong(String localPath) {
+    return _$playLocalAsyncAction.run(() => super.playSong(localPath));
   }
 
   final _$_ReproductionControllerBaseActionController =

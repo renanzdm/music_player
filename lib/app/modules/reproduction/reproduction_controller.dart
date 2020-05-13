@@ -9,22 +9,45 @@ class ReproductionController = _ReproductionControllerBase
 abstract class _ReproductionControllerBase with Store {
   final AudioPlayer audioPlayer;
 
-  _ReproductionControllerBase(this.audioPlayer);
+  _ReproductionControllerBase(this.audioPlayer) {
+    getPlayerState();
+  }
 
   @observable
   int result;
   @action
-  playLocal(String localPath) async {
-    int result = await audioPlayer.play(localPath, isLocal: true);
-    print(result);
+  playSong(String localPath) async {
+    await audioPlayer.play(localPath, isLocal: true);
   }
+
   @observable
-  AudioPlayerState playerState;
+  AudioPlayerState playerState = AudioPlayerState.STOPPED;
   @action
-  getPlayerState(){
-    audioPlayer.onPlayerStateChanged.listen((AudioPlayerState event) { 
+  getPlayerState() {
+    audioPlayer.onPlayerStateChanged.listen((AudioPlayerState event) {
       playerState = event;
     });
   }
 
+  pauseSong() async {
+    await audioPlayer.pause();
+  }
+
+  actionSong(String localPath) async {
+    switch (playerState) {
+      case AudioPlayerState.PLAYING:
+        pauseSong();
+        break;
+      case AudioPlayerState.PAUSED:
+        playSong(localPath);
+        break;
+      case AudioPlayerState.STOPPED:
+        playSong(localPath);
+        break;
+      case AudioPlayerState.COMPLETED:
+        break;
+      default:
+      //playSong(localPath);
+    }
+  }
 }

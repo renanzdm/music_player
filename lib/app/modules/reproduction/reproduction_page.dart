@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:musicplayer/app/shared/widgets/app_bar/app_bar_widget.dart';
@@ -83,35 +85,59 @@ class _ReproductionPageState
                   ),
                 ),
                 Spacer(),
-                Slider(
-                  value: 0.5,
-                  onChanged: (value) {},
-                  activeColor: Theme.of(context).primaryColor,
-                  inactiveColor:
-                      Theme.of(context).primaryColor.withOpacity(0.5),
+                Column(
+                  children: <Widget>[
+                    Slider(
+                      value: 1,
+                      onChanged: (value) {},
+                      activeColor: Theme.of(context).primaryColor,
+                      inactiveColor:
+                          Theme.of(context).primaryColor.withOpacity(0.5),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          child: Text('data'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          child: Text('data'),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      ButtonPlayerWidget(
-                        onTap: () {},
-                        icon: Icons.skip_previous,
+                Observer(
+                  builder: (_) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          ButtonPlayerWidget(
+                            onTap: () {},
+                            icon: Icons.skip_previous,
+                          ),
+                          ButtonPlayerWidget(
+                            sizeButton: 70,
+                            onTap: () {
+                              controller.actionSong(widget.songInfo.filePath);
+                            },
+                            icon: controller.playerState ==
+                                    AudioPlayerState.PLAYING
+                                ? Icons.pause
+                                : Icons.play_arrow,
+                          ),
+                          ButtonPlayerWidget(
+                            onTap: () {},
+                            icon: Icons.skip_next,
+                          ),
+                        ],
                       ),
-                      ButtonPlayerWidget(
-                        sizeButton: 70,
-                        onTap: () {
-                          controller.playLocal(widget.songInfo.filePath);
-                        },
-                        icon: Icons.play_arrow,
-                      ),
-                      ButtonPlayerWidget(
-                        onTap: () {},
-                        icon: Icons.skip_next,
-                      ),
-                    ],
-                  ),
+                    );
+                  },
                 )
               ],
             ),
