@@ -39,8 +39,6 @@ class _AlbumPageState extends ModularState<AlbumPage, AlbumController> {
                         itemBuilder: (_, index) {
                           return CardTypesWidget(
                             width: width * 0.5,
-                            // albumTitle: list[index].title,
-                            // backgroundImage: list[index].albumArt,
                             albumInfo: list[index],
                           );
                         },

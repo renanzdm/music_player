@@ -41,14 +41,15 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
               child: Text(
                 'Biblioteca',
                 style: GoogleFonts.roboto(
-                    fontSize: 24, color: Colors.grey.shade700),
+                    fontSize: 24, color: Theme.of(context).primaryColor),
               ),
             ),
             TabBar(
                 indicatorSize: TabBarIndicatorSize.label,
                 labelStyle: GoogleFonts.roboto(fontWeight: FontWeight.w400),
-                labelColor: Colors.indigoAccent,
-                unselectedLabelColor: Colors.grey.shade400,
+                labelColor: Theme.of(context).primaryColor,
+                unselectedLabelColor: Theme.of(context).primaryColor.withOpacity(0.5),
+                indicatorColor: Theme.of(context).primaryColor,
                 tabs: [
                   Tab(
                     text: 'Album',

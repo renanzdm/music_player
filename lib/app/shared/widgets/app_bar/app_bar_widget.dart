@@ -29,7 +29,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Icon(
                 iconLeft,
-                color: Colors.grey.shade600,
+                color: Theme.of(context).primaryColor,
               ),
             ),
           ),
@@ -38,7 +38,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
             onTap: onTapRigth,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Icon(iconRigth, color: Colors.grey.shade600),
+              child: Icon(iconRigth, color: Theme.of(context).primaryColor),
             ),
           ),
         ],

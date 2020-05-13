@@ -19,41 +19,44 @@ class CardTypesWidget extends StatelessWidget {
       onTap: () {
         Modular.to.pushNamed('/details', arguments: albumInfo);
       },
-      child: Container(
-        width: width,
-        margin: EdgeInsets.all(15),
-        decoration: BoxDecoration(
-          color: Colors.indigo,
-          borderRadius: BorderRadius.circular(16),
-          image: DecorationImage(
-              image: (albumInfo.albumArt != null)
-                  ? FileImage(File(albumInfo.albumArt))
-                  : AssetImage(
-                      'assets/note.png',
-                    ),
-              fit: BoxFit.fill,
-              alignment: Alignment.center),
-        ),
-        alignment: Alignment.bottomCenter,
-        child: Container(
-          alignment: Alignment.center,
-          child: Text(
-            albumInfo.title.toUpperCase(),
-            style: GoogleFonts.roboto(
-                color: Colors.grey.shade100,
-                fontWeight: FontWeight.bold,
-                letterSpacing: 4),
-            overflow: TextOverflow.ellipsis,
-            maxLines: 2,
-            textAlign: TextAlign.center,
-          ),
+      child: Hero(
+              tag: albumInfo.id,
+              child: Container(
           width: width,
-          height: 40,
+          margin: EdgeInsets.all(15),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.4),
-            borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(16),
-                bottomRight: Radius.circular(16)),
+            color: Colors.indigo,
+            borderRadius: BorderRadius.circular(16),
+            image: DecorationImage(
+                image: (albumInfo?.albumArt != null)
+                    ? FileImage(File(albumInfo.albumArt))
+                    : AssetImage(
+                        'assets/note.png',
+                      ),
+                fit: BoxFit.fill,
+                alignment: Alignment.center),
+          ),
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            alignment: Alignment.center,
+            child: Text(
+              albumInfo.title.toUpperCase(),
+              style: GoogleFonts.roboto(
+                  color: Colors.grey.shade100,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 4),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
+              textAlign: TextAlign.center,
+            ),
+            width: width,
+            height: 40,
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.4),
+              borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(16),
+                  bottomRight: Radius.circular(16)),
+            ),
           ),
         ),
       ),

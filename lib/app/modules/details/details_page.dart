@@ -6,6 +6,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:musicplayer/app/shared/widgets/app_bar/app_bar_widget.dart';
+import 'package:musicplayer/app/shared/widgets/bottom_app_bar/bottom_app_bar_widget.dart';
 import 'details_controller.dart';
 
 class DetailsPage extends StatefulWidget {
@@ -31,6 +32,7 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomAppBarWidget(),
       appBar: AppBarWidget(
         height: 50,
         iconLeft: Icons.arrow_back_ios,
@@ -50,34 +52,25 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsController> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
-                    Container(
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle, color: Colors.indigoAccent),
-                      height: height * 0.3,
-                      width: width * 0.3,
+                    Hero(
+                      tag: widget.albumInfo.id,
+                      child: Container(
+                        margin: EdgeInsets.symmetric(vertical: 12),
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: (widget.albumInfo.albumArt != null)
+                                    ? FileImage(File(widget.albumInfo.albumArt))
+                                    : AssetImage(
+                                        'assets/note.png',
+                                      ),
+                                fit: BoxFit.fill,
+                                alignment: Alignment.center),
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.indigoAccent),
+                        height: height * 0.30,
+                        width: width * 0.9,
+                      ),
                     ),
-                    Container(
-                      margin: EdgeInsets.symmetric(vertical: 12),
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: (widget.albumInfo.albumArt != null)
-                                  ? FileImage(File(widget.albumInfo.albumArt))
-                                  : AssetImage(
-                                      'assets/note.png',
-                                    ),
-                              fit: BoxFit.fill,
-                              alignment: Alignment.center),
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.indigoAccent),
-                      height: height * 0.30,
-                      width: width * 0.9,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle, color: Colors.indigoAccent),
-                      height: height * 0.3,
-                      width: width * 0.3,
-                    )
                   ],
                 ),
               ),
@@ -89,24 +82,41 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsController> {
                     if (list != null) {
                       return ListView.builder(
                         itemCount: list.length,
-                        itemBuilder: (context, index) => ListTile(
-                          title: Text(
-                            list[index].title,
-                            style: GoogleFonts.openSansCondensed(fontSize: 18),
+                        itemBuilder: (context, index) => Hero(
+                          tag: list[index].id,
+                          child: Card(
+                            child: ListTile(
+                              title: GestureDetector(
+                                behavior: HitTestBehavior.deferToChild,
+                                onTap: () {
+                                  Modular.to.pushNamed('/reproduction',
+                                      arguments: list[index]);
+                                },
+                                child: Text(
+                                  list[index].title,
+                                  style: GoogleFonts.openSansCondensed(
+                                      fontSize: 18),
+                                ),
+                              ),
+                              subtitle: Text(list[index].artist,
+                                  style: GoogleFonts.openSansCondensed()),
+                              trailing: Icon(
+                                Icons.more_vert,
+                                color: Theme.of(context).primaryColor,
+                              ),
+                              leading: CircleAvatar(
+                                  backgroundImage:
+                                      widget.albumInfo.albumArt != null
+                                          ? FileImage(
+                                              File(
+                                                widget.albumInfo.albumArt,
+                                              ),
+                                              scale: 1)
+                                          : AssetImage(
+                                              'assets/note.png',
+                                            )),
+                            ),
                           ),
-                          subtitle: Text(list[index].artist,
-                              style: GoogleFonts.openSansCondensed()),
-                          trailing: Icon(Icons.more_vert),
-                          leading: CircleAvatar(
-                              backgroundImage: widget.albumInfo.albumArt != null
-                                  ? FileImage(
-                                      File(
-                                        widget.albumInfo.albumArt,
-                                      ),
-                                      scale: 1)
-                                  : AssetImage(
-                                      'assets/note.png',
-                                    )),
                         ),
                       );
                     } else {

@@ -1,13 +1,14 @@
 import 'package:flutter_audio_query/flutter_audio_query.dart';
-import 'package:musicplayer/app/modules/details/details_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:musicplayer/app/modules/details/details_controller.dart';
 import 'package:musicplayer/app/modules/details/details_page.dart';
-import 'package:musicplayer/app/modules/home/home_module.dart';
+
+import '../../app_module.dart';
 
 class DetailsModule extends ChildModule {
   @override
   List<Bind> get binds => [
-        Bind((i) => DetailsController(HomeModule.to.get<FlutterAudioQuery>())),
+        Bind((i) => DetailsController(AppModule.to.get<FlutterAudioQuery>())),
       ];
 
   @override

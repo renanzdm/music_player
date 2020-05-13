@@ -14,7 +14,7 @@ class PlaylistWidget extends StatelessWidget {
               'Playlists'.toUpperCase(),
               style: GoogleFonts.roboto(
                 fontSize: 20,
-                color: Colors.grey.shade700,
+                color: Theme.of(context).primaryColor,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -27,26 +27,27 @@ class PlaylistWidget extends StatelessWidget {
                       title: Text(
                         'Titulo Playlist',
                         style: GoogleFonts.roboto(
-                          color: Colors.grey.shade700,
-                          fontWeight: FontWeight.w400,
+                          color: Theme.of(context).primaryColor,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                       subtitle: Text('Songs'),
                       trailing: Icon(
                         Icons.favorite_border,
-                        color: Colors.red,
+                        color: Theme.of(context).primaryColor,
                       ),
                       leading: Container(
                         height: 35,
                         width: 35,
                         child: Icon(
                           Icons.playlist_add_check,
-                          color: Colors.indigo.shade600,
+                          color: Colors.white,
                         ),
                         decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
                           shape: BoxShape.circle,
                           border: Border.all(
-                              color: Colors.indigoAccent.shade200,
+                              color: Theme.of(context).primaryColor,
                               width: 2,
                               style: BorderStyle.solid),
                         ),
