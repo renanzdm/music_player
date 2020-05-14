@@ -13,17 +13,15 @@ mixin _$ReproductionController on _ReproductionControllerBase, Store {
 
   @override
   int get result {
-    _$resultAtom.context.enforceReadPolicy(_$resultAtom);
-    _$resultAtom.reportObserved();
+    _$resultAtom.reportRead();
     return super.result;
   }
 
   @override
   set result(int value) {
-    _$resultAtom.context.conditionallyRunInAction(() {
+    _$resultAtom.reportWrite(value, super.result, () {
       super.result = value;
-      _$resultAtom.reportChanged();
-    }, _$resultAtom, name: '${_$resultAtom.name}_set');
+    });
   }
 
   final _$playerStateAtom =
@@ -31,24 +29,39 @@ mixin _$ReproductionController on _ReproductionControllerBase, Store {
 
   @override
   AudioPlayerState get playerState {
-    _$playerStateAtom.context.enforceReadPolicy(_$playerStateAtom);
-    _$playerStateAtom.reportObserved();
+    _$playerStateAtom.reportRead();
     return super.playerState;
   }
 
   @override
   set playerState(AudioPlayerState value) {
-    _$playerStateAtom.context.conditionallyRunInAction(() {
+    _$playerStateAtom.reportWrite(value, super.playerState, () {
       super.playerState = value;
-      _$playerStateAtom.reportChanged();
-    }, _$playerStateAtom, name: '${_$playerStateAtom.name}_set');
+    });
   }
 
-  final _$playLocalAsyncAction = AsyncAction('playLocal');
+  final _$positionSongAtom =
+      Atom(name: '_ReproductionControllerBase.positionSong');
+
+  @override
+  double get positionSong {
+    _$positionSongAtom.reportRead();
+    return super.positionSong;
+  }
+
+  @override
+  set positionSong(double value) {
+    _$positionSongAtom.reportWrite(value, super.positionSong, () {
+      super.positionSong = value;
+    });
+  }
+
+  final _$playSongAsyncAction =
+      AsyncAction('_ReproductionControllerBase.playSong');
 
   @override
   Future playSong(String localPath) {
-    return _$playLocalAsyncAction.run(() => super.playSong(localPath));
+    return _$playSongAsyncAction.run(() => super.playSong(localPath));
   }
 
   final _$_ReproductionControllerBaseActionController =
@@ -56,8 +69,8 @@ mixin _$ReproductionController on _ReproductionControllerBase, Store {
 
   @override
   dynamic getPlayerState() {
-    final _$actionInfo =
-        _$_ReproductionControllerBaseActionController.startAction();
+    final _$actionInfo = _$_ReproductionControllerBaseActionController
+        .startAction(name: '_ReproductionControllerBase.getPlayerState');
     try {
       return super.getPlayerState();
     } finally {
@@ -66,9 +79,22 @@ mixin _$ReproductionController on _ReproductionControllerBase, Store {
   }
 
   @override
+  dynamic getPosition() {
+    final _$actionInfo = _$_ReproductionControllerBaseActionController
+        .startAction(name: '_ReproductionControllerBase.getPosition');
+    try {
+      return super.getPosition();
+    } finally {
+      _$_ReproductionControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
-    final string =
-        'result: ${result.toString()},playerState: ${playerState.toString()}';
-    return '{$string}';
+    return '''
+result: ${result},
+playerState: ${playerState},
+positionSong: ${positionSong}
+    ''';
   }
 }

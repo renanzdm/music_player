@@ -11,7 +11,8 @@ part of 'card_types_controller.dart';
 mixin _$CardTypesController on _CardTypesControllerBase, Store {
   @override
   String toString() {
-    final string = '';
-    return '{$string}';
+    return '''
+
+    ''';
   }
 }

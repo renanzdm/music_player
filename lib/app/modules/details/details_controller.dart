@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:mobx/mobx.dart';
 
@@ -7,8 +8,9 @@ class DetailsController = _DetailsControllerBase with _$DetailsController;
 
 abstract class _DetailsControllerBase with Store {
   final FlutterAudioQuery _audioQuery;
+  final AudioPlayer audioPlayer;
 
-  _DetailsControllerBase(this._audioQuery);
+  _DetailsControllerBase(this._audioQuery, this.audioPlayer);
 
   @observable
   List<SongInfo> songs;
@@ -16,8 +18,14 @@ abstract class _DetailsControllerBase with Store {
   @action
   getSongs(String albumId) async {
     songs = await _audioQuery.getSongsFromAlbum(albumId: albumId);
-    songs.forEach((element) {
-      print(element.title);
-    });
+  }
+
+  playSongSelected(String filePath) async {
+    if (audioPlayer.state == AudioPlayerState.PLAYING) {
+      await audioPlayer.stop();
+      await audioPlayer.play(filePath);
+    } else {
+      await audioPlayer.play(filePath);
+    }
   }
 }

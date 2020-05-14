@@ -8,6 +8,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:musicplayer/app/shared/widgets/app_bar/app_bar_widget.dart';
 import 'package:musicplayer/app/shared/widgets/button_player/button_player_widget.dart';
+
 import 'reproduction_controller.dart';
 
 class ReproductionPage extends StatefulWidget {
@@ -23,9 +24,10 @@ class ReproductionPage extends StatefulWidget {
 class _ReproductionPageState
     extends ModularState<ReproductionPage, ReproductionController> {
   //use 'controller' variable to access controller
-
   @override
   Widget build(BuildContext context) {
+    double durationSong = double.parse(widget.songInfo.duration) / 1000 / 60;
+
     return Scaffold(
         appBar: AppBarWidget(
           height: 50,
@@ -89,24 +91,28 @@ class _ReproductionPageState
                   children: <Widget>[
                     Slider(
                       value: 1,
+                      min: 0,
+                      max: durationSong,
                       onChanged: (value) {},
                       activeColor: Theme.of(context).primaryColor,
                       inactiveColor:
                           Theme.of(context).primaryColor.withOpacity(0.5),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 24),
-                          child: Text('data'),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 24),
-                          child: Text('data'),
-                        ),
-                      ],
-                    ),
+                    Observer(builder: (_) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 24),
+                            child: Text('${controller.positionSong}'),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 24),
+                            child: Text('$durationSong'),
+                          ),
+                        ],
+                      );
+                    })
                   ],
                 ),
                 Observer(

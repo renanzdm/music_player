@@ -13,20 +13,19 @@ mixin _$AlbumController on _AlbumControllerBase, Store {
 
   @override
   List<AlbumInfo> get listAlbuns {
-    _$listAlbunsAtom.context.enforceReadPolicy(_$listAlbunsAtom);
-    _$listAlbunsAtom.reportObserved();
+    _$listAlbunsAtom.reportRead();
     return super.listAlbuns;
   }
 
   @override
   set listAlbuns(List<AlbumInfo> value) {
-    _$listAlbunsAtom.context.conditionallyRunInAction(() {
+    _$listAlbunsAtom.reportWrite(value, super.listAlbuns, () {
       super.listAlbuns = value;
-      _$listAlbunsAtom.reportChanged();
-    }, _$listAlbunsAtom, name: '${_$listAlbunsAtom.name}_set');
+    });
   }
 
-  final _$getAlbumDataAsyncAction = AsyncAction('getAlbumData');
+  final _$getAlbumDataAsyncAction =
+      AsyncAction('_AlbumControllerBase.getAlbumData');
 
   @override
   Future getAlbumData() {
@@ -35,7 +34,8 @@ mixin _$AlbumController on _AlbumControllerBase, Store {
 
   @override
   String toString() {
-    final string = 'listAlbuns: ${listAlbuns.toString()}';
-    return '{$string}';
+    return '''
+listAlbuns: ${listAlbuns}
+    ''';
   }
 }

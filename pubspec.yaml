@@ -14,15 +14,15 @@ description: A new Flutter application.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.3.0 <3.0.0"
 
 dependencies:
   audioplayers: ^0.15.1
   flutter_audio_query: ^0.3.4+2
-  google_fonts: ^1.0.0
+  google_fonts: ^1.1.0
   dio: ^3.0.9
   flutter_mobx: ^1.1.0
-  mobx: ^1.1.1
+  mobx: ^1.2.0
   flutter_modular: ^1.1.2
   flutter:
     sdk: flutter

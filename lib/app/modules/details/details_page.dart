@@ -7,6 +7,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:musicplayer/app/shared/widgets/app_bar/app_bar_widget.dart';
 import 'package:musicplayer/app/shared/widgets/bottom_app_bar/bottom_app_bar_widget.dart';
+
 import 'details_controller.dart';
 
 class DetailsPage extends StatefulWidget {
@@ -32,7 +33,6 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomAppBarWidget(),
       appBar: AppBarWidget(
         height: 50,
         iconLeft: Icons.arrow_back_ios,
@@ -88,7 +88,9 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsController> {
                             child: ListTile(
                               title: GestureDetector(
                                 behavior: HitTestBehavior.deferToChild,
-                                onTap: () {
+                                onTap: () async {
+                                  await controller
+                                      .playSongSelected(list[index].filePath);
                                   Modular.to.pushNamed('/reproduction',
                                       arguments: list[index]);
                                 },

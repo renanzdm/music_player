@@ -11,22 +11,26 @@ abstract class _ReproductionControllerBase with Store {
 
   _ReproductionControllerBase(this.audioPlayer) {
     getPlayerState();
+    getPosition();
   }
 
   @observable
   int result;
+
   @action
   playSong(String localPath) async {
     await audioPlayer.play(localPath, isLocal: true);
   }
 
   @observable
-  AudioPlayerState playerState = AudioPlayerState.STOPPED;
+  AudioPlayerState playerState = AudioPlayerState.PLAYING;
+
   @action
   getPlayerState() {
     audioPlayer.onPlayerStateChanged.listen((AudioPlayerState event) {
       playerState = event;
     });
+    //print(playerState);
   }
 
   pauseSong() async {
@@ -47,7 +51,16 @@ abstract class _ReproductionControllerBase with Store {
       case AudioPlayerState.COMPLETED:
         break;
       default:
-      //playSong(localPath);
     }
+  }
+
+  @observable
+  double positionSong;
+
+  @action
+  getPosition() {
+    audioPlayer.onAudioPositionChanged.listen((Duration p) {
+      positionSong = p.inSeconds.toDouble();
+    });
   }
 }
