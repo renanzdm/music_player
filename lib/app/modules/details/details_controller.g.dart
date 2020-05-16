@@ -27,7 +27,7 @@ mixin _$DetailsController on _DetailsControllerBase, Store {
   final _$getSongsAsyncAction = AsyncAction('_DetailsControllerBase.getSongs');
 
   @override
-  Future getSongs(String albumId) {
+  Future<List<SongInfo>> getSongs(String albumId) {
     return _$getSongsAsyncAction.run(() => super.getSongs(albumId));
   }
 

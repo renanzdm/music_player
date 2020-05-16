@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:mobx/mobx.dart';
 
 part 'reproduction_controller.g.dart';
@@ -7,34 +8,66 @@ class ReproductionController = _ReproductionControllerBase
     with _$ReproductionController;
 
 abstract class _ReproductionControllerBase with Store {
-  final AudioPlayer audioPlayer;
+  final AudioPlayer _audioPlayer;
+  final FlutterAudioQuery _audioQuery;
 
-  _ReproductionControllerBase(this.audioPlayer) {
+  _ReproductionControllerBase(this._audioPlayer, this._audioQuery) {
     getPlayerState();
-    getPosition();
+    getPositionToMusic();
+    getTotalDuration();
   }
 
   @observable
-  int result;
-
-  @action
-  playSong(String localPath) async {
-    await audioPlayer.play(localPath, isLocal: true);
-  }
-
+  Duration timeToMusic = Duration();
   @observable
   AudioPlayerState playerState = AudioPlayerState.PLAYING;
+  @observable
+  Duration audioDuration = Duration();
+  @observable
+  List<SongInfo> allSongs;
 
   @action
   getPlayerState() {
-    audioPlayer.onPlayerStateChanged.listen((AudioPlayerState event) {
+    _audioPlayer.onPlayerStateChanged.listen((AudioPlayerState event) {
       playerState = event;
     });
-    //print(playerState);
   }
 
-  pauseSong() async {
-    await audioPlayer.pause();
+  @computed
+  String get progressPositon => timeToMusic != null
+      ? ('${timeToMusic.inMinutes.remainder(60)}:' +
+          '${timeToMusic.inSeconds.remainder(60)}')
+      : '';
+
+  @computed
+  double get progressBar => (audioDuration.inSeconds > 0
+      ? timeToMusic.inSeconds / audioDuration.inSeconds
+      : 0);
+
+  @action
+  getPositionToMusic() {
+    _audioPlayer.onAudioPositionChanged.listen((Duration p) {
+      timeToMusic = p;
+    });
+  }
+
+  @action
+  getTotalDuration() {
+    _audioPlayer.onDurationChanged.listen((event) {
+      audioDuration = event;
+    });
+  }
+
+  @computed
+  String get totalTimeSong => audioDuration != null
+      ? '${audioDuration.inMinutes.remainder(60)}:' +
+          '${audioDuration.inSeconds.remainder(60)}'
+      : '';
+
+  @action
+  controllerProgressMusic(double value) {
+    int progress = (value * audioDuration.inSeconds).toInt();
+    _audioPlayer.seek(Duration(seconds: progress));
   }
 
   actionSong(String localPath) async {
@@ -49,18 +82,23 @@ abstract class _ReproductionControllerBase with Store {
         playSong(localPath);
         break;
       case AudioPlayerState.COMPLETED:
+        playSong(localPath);
+
         break;
       default:
     }
   }
 
-  @observable
-  double positionSong;
+  playSong(String localPath) async {
+    await _audioPlayer.play(localPath, isLocal: true);
+  }
+
+  pauseSong() async {
+    await _audioPlayer.pause();
+  }
 
   @action
-  getPosition() {
-    audioPlayer.onAudioPositionChanged.listen((Duration p) {
-      positionSong = p.inSeconds.toDouble();
-    });
+  Future<List<SongInfo>> getAllSongsAleatory() async {
+    return allSongs = await _audioQuery.getSongs();
   }
 }

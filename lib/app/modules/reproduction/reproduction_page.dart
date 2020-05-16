@@ -26,8 +26,6 @@ class _ReproductionPageState
   //use 'controller' variable to access controller
   @override
   Widget build(BuildContext context) {
-    double durationSong = double.parse(widget.songInfo.duration) / 1000 / 60;
-
     return Scaffold(
         appBar: AppBarWidget(
           height: 50,
@@ -87,34 +85,36 @@ class _ReproductionPageState
                   ),
                 ),
                 Spacer(),
-                Column(
-                  children: <Widget>[
-                    Slider(
-                      value: 1,
-                      min: 0,
-                      max: durationSong,
-                      onChanged: (value) {},
-                      activeColor: Theme.of(context).primaryColor,
-                      inactiveColor:
-                          Theme.of(context).primaryColor.withOpacity(0.5),
-                    ),
-                    Observer(builder: (_) {
-                      return Row(
+                Observer(builder: (_) {
+                  return Column(
+                    children: <Widget>[
+                      Slider(
+                        value: controller.progressBar,
+                        min: 0,
+                        max: 1,
+                        onChanged: (value) {
+                          controller.controllerProgressMusic(value);
+                        },
+                        activeColor: Theme.of(context).primaryColor,
+                        inactiveColor:
+                            Theme.of(context).primaryColor.withOpacity(0.5),
+                      ),
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 24),
-                            child: Text('${controller.positionSong}'),
+                            child: Text(controller.progressPositon),
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 24),
-                            child: Text('$durationSong'),
+                            child: Text(controller.totalTimeSong),
                           ),
                         ],
-                      );
-                    })
-                  ],
-                ),
+                      )
+                    ],
+                  );
+                }),
                 Observer(
                   builder: (_) {
                     return Padding(

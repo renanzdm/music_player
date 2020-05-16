@@ -9,18 +9,41 @@ part of 'reproduction_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$ReproductionController on _ReproductionControllerBase, Store {
-  final _$resultAtom = Atom(name: '_ReproductionControllerBase.result');
+  Computed<String> _$progressPositonComputed;
 
   @override
-  int get result {
-    _$resultAtom.reportRead();
-    return super.result;
+  String get progressPositon => (_$progressPositonComputed ??= Computed<String>(
+          () => super.progressPositon,
+          name: '_ReproductionControllerBase.progressPositon'))
+      .value;
+  Computed<double> _$progressBarComputed;
+
+  @override
+  double get progressBar =>
+      (_$progressBarComputed ??= Computed<double>(() => super.progressBar,
+              name: '_ReproductionControllerBase.progressBar'))
+          .value;
+  Computed<String> _$totalTimeSongComputed;
+
+  @override
+  String get totalTimeSong =>
+      (_$totalTimeSongComputed ??= Computed<String>(() => super.totalTimeSong,
+              name: '_ReproductionControllerBase.totalTimeSong'))
+          .value;
+
+  final _$timeToMusicAtom =
+      Atom(name: '_ReproductionControllerBase.timeToMusic');
+
+  @override
+  Duration get timeToMusic {
+    _$timeToMusicAtom.reportRead();
+    return super.timeToMusic;
   }
 
   @override
-  set result(int value) {
-    _$resultAtom.reportWrite(value, super.result, () {
-      super.result = value;
+  set timeToMusic(Duration value) {
+    _$timeToMusicAtom.reportWrite(value, super.timeToMusic, () {
+      super.timeToMusic = value;
     });
   }
 
@@ -40,28 +63,44 @@ mixin _$ReproductionController on _ReproductionControllerBase, Store {
     });
   }
 
-  final _$positionSongAtom =
-      Atom(name: '_ReproductionControllerBase.positionSong');
+  final _$audioDurationAtom =
+      Atom(name: '_ReproductionControllerBase.audioDuration');
 
   @override
-  double get positionSong {
-    _$positionSongAtom.reportRead();
-    return super.positionSong;
+  Duration get audioDuration {
+    _$audioDurationAtom.reportRead();
+    return super.audioDuration;
   }
 
   @override
-  set positionSong(double value) {
-    _$positionSongAtom.reportWrite(value, super.positionSong, () {
-      super.positionSong = value;
+  set audioDuration(Duration value) {
+    _$audioDurationAtom.reportWrite(value, super.audioDuration, () {
+      super.audioDuration = value;
     });
   }
 
-  final _$playSongAsyncAction =
-      AsyncAction('_ReproductionControllerBase.playSong');
+  final _$allSongsAtom = Atom(name: '_ReproductionControllerBase.allSongs');
 
   @override
-  Future playSong(String localPath) {
-    return _$playSongAsyncAction.run(() => super.playSong(localPath));
+  List<SongInfo> get allSongs {
+    _$allSongsAtom.reportRead();
+    return super.allSongs;
+  }
+
+  @override
+  set allSongs(List<SongInfo> value) {
+    _$allSongsAtom.reportWrite(value, super.allSongs, () {
+      super.allSongs = value;
+    });
+  }
+
+  final _$getAllSongsAleatoryAsyncAction =
+      AsyncAction('_ReproductionControllerBase.getAllSongsAleatory');
+
+  @override
+  Future<List<SongInfo>> getAllSongsAleatory() {
+    return _$getAllSongsAleatoryAsyncAction
+        .run(() => super.getAllSongsAleatory());
   }
 
   final _$_ReproductionControllerBaseActionController =
@@ -79,11 +118,34 @@ mixin _$ReproductionController on _ReproductionControllerBase, Store {
   }
 
   @override
-  dynamic getPosition() {
+  dynamic getPositionToMusic() {
     final _$actionInfo = _$_ReproductionControllerBaseActionController
-        .startAction(name: '_ReproductionControllerBase.getPosition');
+        .startAction(name: '_ReproductionControllerBase.getPositionToMusic');
     try {
-      return super.getPosition();
+      return super.getPositionToMusic();
+    } finally {
+      _$_ReproductionControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic getTotalDuration() {
+    final _$actionInfo = _$_ReproductionControllerBaseActionController
+        .startAction(name: '_ReproductionControllerBase.getTotalDuration');
+    try {
+      return super.getTotalDuration();
+    } finally {
+      _$_ReproductionControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic controllerProgressMusic(double value) {
+    final _$actionInfo =
+        _$_ReproductionControllerBaseActionController.startAction(
+            name: '_ReproductionControllerBase.controllerProgressMusic');
+    try {
+      return super.controllerProgressMusic(value);
     } finally {
       _$_ReproductionControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -92,9 +154,13 @@ mixin _$ReproductionController on _ReproductionControllerBase, Store {
   @override
   String toString() {
     return '''
-result: ${result},
+timeToMusic: ${timeToMusic},
 playerState: ${playerState},
-positionSong: ${positionSong}
+audioDuration: ${audioDuration},
+allSongs: ${allSongs},
+progressPositon: ${progressPositon},
+progressBar: ${progressBar},
+totalTimeSong: ${totalTimeSong}
     ''';
   }
 }

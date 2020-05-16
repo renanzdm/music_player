@@ -21,7 +21,7 @@ class AppModule extends MainModule {
         Bind((i) => CardTypesController()),
         Bind((i) => AppBarController()),
         Bind((i) => FlutterAudioQuery()),
-        Bind((i) => AudioPlayer()),
+        Bind((i) => AudioPlayer(playerId: 'My_player' )),
 
       ];
 

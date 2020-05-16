@@ -6,7 +6,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:musicplayer/app/shared/widgets/app_bar/app_bar_widget.dart';
-import 'package:musicplayer/app/shared/widgets/bottom_app_bar/bottom_app_bar_widget.dart';
 
 import 'details_controller.dart';
 
@@ -86,25 +85,27 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsController> {
                           tag: list[index].id,
                           child: Card(
                             child: ListTile(
-                              title: GestureDetector(
-                                behavior: HitTestBehavior.deferToChild,
-                                onTap: () async {
-                                  await controller
-                                      .playSongSelected(list[index].filePath);
-                                  Modular.to.pushNamed('/reproduction',
-                                      arguments: list[index]);
-                                },
-                                child: Text(
-                                  list[index].title,
-                                  style: GoogleFonts.openSansCondensed(
-                                      fontSize: 18),
-                                ),
+                              onTap: () async {
+                                await controller
+                                    .playSongSelected(list[index].filePath);
+                                Modular.to.pushNamed('/reproduction',
+                                    arguments: list[index]);
+                              },
+                              title: Text(
+                                list[index].title,
+                                style:
+                                    GoogleFonts.openSansCondensed(fontSize: 18),
                               ),
                               subtitle: Text(list[index].artist,
                                   style: GoogleFonts.openSansCondensed()),
-                              trailing: Icon(
-                                Icons.more_vert,
-                                color: Theme.of(context).primaryColor,
+                              trailing: GestureDetector(
+                                onTap: (){
+                                  print('teste');
+                                },
+                                child: Icon(
+                                  Icons.more_vert,
+                                  color: Theme.of(context).primaryColor,
+                                ),
                               ),
                               leading: CircleAvatar(
                                   backgroundImage:

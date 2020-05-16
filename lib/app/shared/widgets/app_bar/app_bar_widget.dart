@@ -26,7 +26,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
             behavior: HitTestBehavior.translucent,
             onTap: onTapLeft,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 10),
               child: Icon(
                 iconLeft,
                 color: Theme.of(context).primaryColor,
@@ -34,10 +34,9 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
           GestureDetector(
-            behavior: HitTestBehavior.translucent,
             onTap: onTapRigth,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 10),
               child: Icon(iconRigth, color: Theme.of(context).primaryColor),
             ),
           ),

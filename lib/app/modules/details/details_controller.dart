@@ -16,11 +16,12 @@ abstract class _DetailsControllerBase with Store {
   List<SongInfo> songs;
 
   @action
-  getSongs(String albumId) async {
-    songs = await _audioQuery.getSongsFromAlbum(albumId: albumId);
+  Future<List<SongInfo>> getSongs(String albumId) async {
+   return songs = await _audioQuery.getSongsFromAlbum(albumId: albumId);
   }
 
   playSongSelected(String filePath) async {
+    
     if (audioPlayer.state == AudioPlayerState.PLAYING) {
       await audioPlayer.stop();
       await audioPlayer.play(filePath);
