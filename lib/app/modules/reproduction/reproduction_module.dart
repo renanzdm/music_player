@@ -1,15 +1,13 @@
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter_audio_query/flutter_audio_query.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:musicplayer/app/app_module.dart';
 import 'package:musicplayer/app/modules/reproduction/reproduction_controller.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:musicplayer/app/modules/reproduction/reproduction_page.dart';
 
 class ReproductionModule extends ChildModule {
   @override
   List<Bind> get binds => [
-        Bind((i) => ReproductionController(AppModule.to.get<AudioPlayer>(),
-            AppModule.to.get<FlutterAudioQuery>())),
+        Bind((i) => ReproductionController(AppModule.to.get<AudioPlayer>())),
       ];
 
   @override

@@ -79,28 +79,19 @@ mixin _$ReproductionController on _ReproductionControllerBase, Store {
     });
   }
 
-  final _$allSongsAtom = Atom(name: '_ReproductionControllerBase.allSongs');
+  final _$faixaAtom = Atom(name: '_ReproductionControllerBase.faixa');
 
   @override
-  List<SongInfo> get allSongs {
-    _$allSongsAtom.reportRead();
-    return super.allSongs;
+  int get faixa {
+    _$faixaAtom.reportRead();
+    return super.faixa;
   }
 
   @override
-  set allSongs(List<SongInfo> value) {
-    _$allSongsAtom.reportWrite(value, super.allSongs, () {
-      super.allSongs = value;
+  set faixa(int value) {
+    _$faixaAtom.reportWrite(value, super.faixa, () {
+      super.faixa = value;
     });
-  }
-
-  final _$getAllSongsAleatoryAsyncAction =
-      AsyncAction('_ReproductionControllerBase.getAllSongsAleatory');
-
-  @override
-  Future<List<SongInfo>> getAllSongsAleatory() {
-    return _$getAllSongsAleatoryAsyncAction
-        .run(() => super.getAllSongsAleatory());
   }
 
   final _$_ReproductionControllerBaseActionController =
@@ -157,7 +148,7 @@ mixin _$ReproductionController on _ReproductionControllerBase, Store {
 timeToMusic: ${timeToMusic},
 playerState: ${playerState},
 audioDuration: ${audioDuration},
-allSongs: ${allSongs},
+faixa: ${faixa},
 progressPositon: ${progressPositon},
 progressBar: ${progressBar},
 totalTimeSong: ${totalTimeSong}

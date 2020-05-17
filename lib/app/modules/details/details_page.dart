@@ -89,7 +89,7 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsController> {
                                 await controller
                                     .playSongSelected(list[index].filePath);
                                 Modular.to.pushNamed('/reproduction',
-                                    arguments: list[index]);
+                                    arguments: list);
                               },
                               title: Text(
                                 list[index].title,

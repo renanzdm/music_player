@@ -3,7 +3,7 @@ import 'package:musicplayer/app/modules/genre/genre_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:musicplayer/app/modules/genre/genre_page.dart';
 
-class GenreModule extends ModuleWidget {
+class GenreModule extends WidgetModule {
   @override
   List<Bind> get binds => [
         Bind((i) => GenreController()),

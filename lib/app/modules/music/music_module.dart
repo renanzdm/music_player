@@ -3,7 +3,7 @@ import 'package:musicplayer/app/modules/music/music_controller.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:musicplayer/app/modules/music/music_page.dart';
 
-class MusicModule extends ModuleWidget {
+class MusicModule extends WidgetModule {
   @override
   List<Bind> get binds => [
         Bind((i) => MusicController()),

@@ -13,7 +13,7 @@ import 'reproduction_controller.dart';
 
 class ReproductionPage extends StatefulWidget {
   final String title;
-  final SongInfo songInfo;
+  final List<SongInfo> songInfo;
   const ReproductionPage({Key key, this.title = "Reproduction", this.songInfo})
       : super(key: key);
 
@@ -27,66 +27,71 @@ class _ReproductionPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBarWidget(
-          height: 50,
-          iconLeft: Icons.arrow_back_ios,
-          iconRigth: Icons.library_music,
-          onTapLeft: () {
-            Modular.to.pop();
-          },
-        ),
-        body: LayoutBuilder(builder: (context, constraints) {
+      appBar: AppBarWidget(
+        height: 50,
+        iconLeft: Icons.arrow_back_ios,
+        iconRigth: Icons.library_music,
+        onTapLeft: () {
+          Modular.to.pop();
+        },
+      ),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
           double height = constraints.maxHeight;
           double width = constraints.maxWidth;
-          return Container(
-            margin: EdgeInsets.symmetric(vertical: 8.0),
-            height: height,
-            width: width,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Hero(
-                  tag: widget.songInfo.id,
-                  child: Container(
-                    height: height * 0.4,
-                    width: height * 0.4,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: (widget.songInfo.albumArtwork != null)
-                              ? FileImage(File(widget.songInfo.albumArtwork))
-                              : AssetImage(
-                                  'assets/note.png',
-                                ),
-                          fit: BoxFit.fill,
-                          alignment: Alignment.center),
-                      color: Colors.blue,
-                      shape: BoxShape.circle,
+          return Observer(builder: (_) {
+            return Container(
+              margin: EdgeInsets.symmetric(vertical: 8.0),
+              height: height,
+              width: width,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Hero(
+                    tag: widget.songInfo[controller.faixa]?.id,
+                    child: Container(
+                      height: height * 0.4,
+                      width: height * 0.4,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: (widget.songInfo[controller.faixa]
+                                        ?.albumArtwork !=
+                                    null)
+                                ? FileImage(File(widget
+                                    .songInfo[controller.faixa]?.albumArtwork))
+                                : AssetImage(
+                                    'assets/note.png',
+                                  ),
+                            fit: BoxFit.fill,
+                            alignment: Alignment.center),
+                        color: Colors.blue,
+                        shape: BoxShape.circle,
+                      ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text.rich(
-                    TextSpan(
-                      text: widget.songInfo.displayName,
-                      style: GoogleFonts.roboto(
-                          fontSize: 15, fontWeight: FontWeight.w700),
-                      children: [
-                        TextSpan(
-                          text: '\n${widget.songInfo.artist}',
-                          style: GoogleFonts.roboto(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w300,
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text.rich(
+                      TextSpan(
+                        text: widget.songInfo[controller.faixa]?.displayName,
+                        style: GoogleFonts.roboto(
+                            fontSize: 15, fontWeight: FontWeight.w700),
+                        children: [
+                          TextSpan(
+                            text:
+                                '\n${widget.songInfo[controller.faixa]?.artist}',
+                            style: GoogleFonts.roboto(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w300,
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
                   ),
-                ),
-                Spacer(),
-                Observer(builder: (_) {
-                  return Column(
+                  Spacer(),
+                  Column(
                     children: <Widget>[
                       Slider(
                         value: controller.progressBar,
@@ -113,41 +118,42 @@ class _ReproductionPageState
                         ],
                       )
                     ],
-                  );
-                }),
-                Observer(
-                  builder: (_) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-                          ButtonPlayerWidget(
-                            onTap: () {},
-                            icon: Icons.skip_previous,
-                          ),
-                          ButtonPlayerWidget(
-                            sizeButton: 70,
-                            onTap: () {
-                              controller.actionSong(widget.songInfo.filePath);
-                            },
-                            icon: controller.playerState ==
-                                    AudioPlayerState.PLAYING
-                                ? Icons.pause
-                                : Icons.play_arrow,
-                          ),
-                          ButtonPlayerWidget(
-                            onTap: () {},
-                            icon: Icons.skip_next,
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                )
-              ],
-            ),
-          );
-        }));
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        ButtonPlayerWidget(
+                          onTap: () {},
+                          icon: Icons.skip_previous,
+                        ),
+                        ButtonPlayerWidget(
+                          sizeButton: 70,
+                          onTap: () {
+                            controller.actionSong(
+                                widget.songInfo[controller.faixa]?.filePath);
+                          },
+                          icon:
+                              controller.playerState == AudioPlayerState.PLAYING
+                                  ? Icons.pause
+                                  : Icons.play_arrow,
+                        ),
+                        ButtonPlayerWidget(
+                          onTap: () {
+                            controller.nextSong(widget.songInfo);
+                          },
+                          icon: Icons.skip_next,
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            );
+          });
+        },
+      ),
+    );
   }
 }

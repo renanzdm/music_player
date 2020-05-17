@@ -6,7 +6,7 @@ import 'package:musicplayer/app/modules/album/album_page.dart';
 
 import '../../app_module.dart';
 
-class AlbumModule extends ModuleWidget {
+class AlbumModule extends WidgetModule {
   @override
   List<Bind> get binds =>
       [Bind((i) => AlbumController(AppModule.to.get<FlutterAudioQuery>()))];

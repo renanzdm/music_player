@@ -9,9 +9,8 @@ class ReproductionController = _ReproductionControllerBase
 
 abstract class _ReproductionControllerBase with Store {
   final AudioPlayer _audioPlayer;
-  final FlutterAudioQuery _audioQuery;
 
-  _ReproductionControllerBase(this._audioPlayer, this._audioQuery) {
+  _ReproductionControllerBase(this._audioPlayer) {
     getPlayerState();
     getPositionToMusic();
     getTotalDuration();
@@ -24,7 +23,7 @@ abstract class _ReproductionControllerBase with Store {
   @observable
   Duration audioDuration = Duration();
   @observable
-  List<SongInfo> allSongs;
+  int faixa = 0;
 
   @action
   getPlayerState() {
@@ -97,8 +96,17 @@ abstract class _ReproductionControllerBase with Store {
     await _audioPlayer.pause();
   }
 
-  @action
-  Future<List<SongInfo>> getAllSongsAleatory() async {
-    return allSongs = await _audioQuery.getSongs();
+  nextSong(List<SongInfo> listSong) async {
+    faixa++;
+    await _audioPlayer.stop();
+    if (listSong.length > faixa) {
+      print(listSong.length);
+      print(faixa);
+
+      playSong(listSong[faixa].filePath);
+    } else {
+      faixa = 0;
+      playSong(listSong[faixa].filePath);
+    }
   }
 }
