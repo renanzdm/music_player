@@ -32,7 +32,7 @@ class _ReproductionPageState
         iconLeft: Icons.arrow_back_ios,
         iconRigth: Icons.library_music,
         onTapLeft: () {
-          Modular.to.pop();
+          Modular.to.pop(widget.songInfo[controller.faixa]);
         },
       ),
       body: LayoutBuilder(

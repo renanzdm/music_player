@@ -22,7 +22,7 @@ abstract class _ReproductionControllerBase with Store {
   AudioPlayerState playerState = AudioPlayerState.PLAYING;
   @observable
   Duration audioDuration = Duration();
-  @observable
+  @observable 
   int faixa = 0;
 
   @action

@@ -7,7 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 class CardTypesWidget extends StatelessWidget {
   final double width;
-
   final AlbumInfo albumInfo;
 
   const CardTypesWidget({Key key, this.width, this.albumInfo})
@@ -16,12 +15,15 @@ class CardTypesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Modular.to.pushNamed('/details', arguments: albumInfo);
+      onTap: () async {
+        final result =
+            await Modular.to.pushNamed('/details', arguments: albumInfo);
+        print(result);
+
       },
       child: Hero(
-              tag: albumInfo.id,
-              child: Container(
+        tag: albumInfo.id,
+        child: Container(
           width: width,
           margin: EdgeInsets.all(15),
           decoration: BoxDecoration(
@@ -52,6 +54,8 @@ class CardTypesWidget extends StatelessWidget {
             width: width,
             height: 40,
             decoration: BoxDecoration(
+        
+        
               color: Colors.white.withOpacity(0.4),
               borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(16),

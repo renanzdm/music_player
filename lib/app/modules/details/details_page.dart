@@ -31,13 +31,14 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsController> {
 
   @override
   Widget build(BuildContext context) {
+    var result;
     return Scaffold(
       appBar: AppBarWidget(
         height: 50,
         iconLeft: Icons.arrow_back_ios,
         iconRigth: Icons.search,
         onTapLeft: () {
-          Modular.to.pop();
+          Modular.to.pop(result);
         },
       ),
       body: LayoutBuilder(
@@ -88,7 +89,8 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsController> {
                               onTap: () async {
                                 await controller
                                     .playSongSelected(list[index].filePath);
-                                Modular.to.pushNamed('/reproduction',
+                                 result = await Modular.to.pushNamed(
+                                    '/reproduction',
                                     arguments: list);
                               },
                               title: Text(
@@ -99,7 +101,7 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsController> {
                               subtitle: Text(list[index].artist,
                                   style: GoogleFonts.openSansCondensed()),
                               trailing: GestureDetector(
-                                onTap: (){
+                                onTap: () {
                                   print('teste');
                                 },
                                 child: Icon(
