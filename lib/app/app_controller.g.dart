@@ -9,39 +9,25 @@ part of 'app_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$AppController on _AppControllerBase, Store {
-  final _$valueAtom = Atom(name: '_AppControllerBase.value');
+  final _$songInfoPlayerAtom = Atom(name: '_AppControllerBase.songInfoPlayer');
 
   @override
-  int get value {
-    _$valueAtom.reportRead();
-    return super.value;
+  SongInfo get songInfoPlayer {
+    _$songInfoPlayerAtom.reportRead();
+    return super.songInfoPlayer;
   }
 
   @override
-  set value(int value) {
-    _$valueAtom.reportWrite(value, super.value, () {
-      super.value = value;
+  set songInfoPlayer(SongInfo value) {
+    _$songInfoPlayerAtom.reportWrite(value, super.songInfoPlayer, () {
+      super.songInfoPlayer = value;
     });
-  }
-
-  final _$_AppControllerBaseActionController =
-      ActionController(name: '_AppControllerBase');
-
-  @override
-  void increment() {
-    final _$actionInfo = _$_AppControllerBaseActionController.startAction(
-        name: '_AppControllerBase.increment');
-    try {
-      return super.increment();
-    } finally {
-      _$_AppControllerBaseActionController.endAction(_$actionInfo);
-    }
   }
 
   @override
   String toString() {
     return '''
-value: ${value}
+songInfoPlayer: ${songInfoPlayer}
     ''';
   }
 }

@@ -16,10 +16,7 @@ class CardTypesWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        final result =
-            await Modular.to.pushNamed('/details', arguments: albumInfo);
-        print(result);
-
+        Modular.to.pushNamed('/details', arguments: albumInfo);
       },
       child: Hero(
         tag: albumInfo.id,
@@ -54,8 +51,6 @@ class CardTypesWidget extends StatelessWidget {
             width: width,
             height: 40,
             decoration: BoxDecoration(
-        
-        
               color: Colors.white.withOpacity(0.4),
               borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(16),

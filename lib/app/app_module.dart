@@ -1,5 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
+import 'package:musicplayer/app/app_controller.dart';
 import 'package:musicplayer/app/shared/widgets/button_player/button_player_controller.dart';
 import 'package:musicplayer/app/modules/details/details_module.dart';
 import 'package:musicplayer/app/modules/reproduction/reproduction_module.dart';
@@ -15,14 +16,14 @@ import 'package:musicplayer/app/shared/widgets/playlist/playlist_controller.dart
 class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
+        Bind((i) => AppController()),
         Bind((i) => ButtonPlayerController()),
         Bind((i) => BottomAppBarController()),
         Bind((i) => PlaylistController()),
         Bind((i) => CardTypesController()),
         Bind((i) => AppBarController()),
         Bind((i) => FlutterAudioQuery()),
-        Bind((i) => AudioPlayer(playerId: 'My_player' )),
-
+        Bind((i) => AudioPlayer(playerId: 'My_player')),
       ];
 
   @override

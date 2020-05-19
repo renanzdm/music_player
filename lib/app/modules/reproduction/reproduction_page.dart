@@ -24,15 +24,20 @@ class ReproductionPage extends StatefulWidget {
 class _ReproductionPageState
     extends ModularState<ReproductionPage, ReproductionController> {
   //use 'controller' variable to access controller
+
   @override
   Widget build(BuildContext context) {
+    Map<String, dynamic> result = {
+      'songPlayer': widget.songInfo[controller.faixa],
+      'listSongs': widget.songInfo
+    };
     return Scaffold(
       appBar: AppBarWidget(
         height: 50,
         iconLeft: Icons.arrow_back_ios,
         iconRigth: Icons.library_music,
         onTapLeft: () {
-          Modular.to.pop(widget.songInfo[controller.faixa]);
+          Modular.to.pop(result);
         },
       ),
       body: LayoutBuilder(
