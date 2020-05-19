@@ -7,6 +7,9 @@ import 'package:musicplayer/app/modules/genre/genre_module.dart';
 import 'package:musicplayer/app/modules/music/music_module.dart';
 import 'package:musicplayer/app/shared/widgets/app_bar/app_bar_widget.dart';
 import 'package:musicplayer/app/shared/widgets/bottom_app_bar/bottom_app_bar_widget.dart';
+
+import '../../app_controller.dart';
+import '../../app_module.dart';
 import 'home_controller.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,6 +22,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends ModularState<HomePage, HomeController> {
   //use 'controller' variable to access controller
+  AppController _appController = AppModule.to.get();
+
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +31,11 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
       length: 4,
       child: Scaffold(
         appBar: AppBarWidget(
+              onTapRigth: (){
+           print(_appController.playerState);
+    print(_appController.timeToMusic);
+    print(_appController.audioDuration);
+        },
           height: 50,
           iconLeft: Icons.search,
           iconRigth: Icons.more_vert,
@@ -48,7 +58,8 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                 indicatorSize: TabBarIndicatorSize.label,
                 labelStyle: GoogleFonts.roboto(fontWeight: FontWeight.w400),
                 labelColor: Theme.of(context).primaryColor,
-                unselectedLabelColor: Theme.of(context).primaryColor.withOpacity(0.5),
+                unselectedLabelColor:
+                    Theme.of(context).primaryColor.withOpacity(0.5),
                 indicatorColor: Theme.of(context).primaryColor,
                 tabs: [
                   Tab(

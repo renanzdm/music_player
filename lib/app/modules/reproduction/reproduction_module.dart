@@ -14,7 +14,7 @@ class ReproductionModule extends ChildModule {
   List<Router> get routers => [
         Router(Modular.initialRoute,
             child: (_, args) => ReproductionPage(
-                  songInfo: args.data,
+                  listSongInfo: args.data,
                 ),
             transition: TransitionType.leftToRight),
       ];

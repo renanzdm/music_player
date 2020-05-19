@@ -6,7 +6,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:musicplayer/app/shared/widgets/app_bar/app_bar_widget.dart';
-
 import '../../app_controller.dart';
 import '../../app_module.dart';
 import 'details_controller.dart';
@@ -95,6 +94,7 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsController> {
                                     '/reproduction',
                                     arguments: list);
                                 _appController.getSongPlayer(result);
+                                print('${_appController.songModel.playerState}');
                               },
                               title: Text(
                                 list[index].title,

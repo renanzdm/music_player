@@ -10,27 +10,14 @@ class ReproductionController = _ReproductionControllerBase
 abstract class _ReproductionControllerBase with Store {
   final AudioPlayer _audioPlayer;
 
-  _ReproductionControllerBase(this._audioPlayer) {
-    getPlayerState();
-    getPositionToMusic();
-    getTotalDuration();
-  }
+  _ReproductionControllerBase(this._audioPlayer);
 
   @observable
   Duration timeToMusic = Duration();
   @observable
-  AudioPlayerState playerState = AudioPlayerState.PLAYING;
-  @observable
   Duration audioDuration = Duration();
-  @observable 
+  @observable
   int faixa = 0;
-
-  @action
-  getPlayerState() {
-    _audioPlayer.onPlayerStateChanged.listen((AudioPlayerState event) {
-      playerState = event;
-    });
-  }
 
   @computed
   String get progressPositon => timeToMusic != null
@@ -42,20 +29,6 @@ abstract class _ReproductionControllerBase with Store {
   double get progressBar => (audioDuration.inSeconds > 0
       ? timeToMusic.inSeconds / audioDuration.inSeconds
       : 0);
-
-  @action
-  getPositionToMusic() {
-    _audioPlayer.onAudioPositionChanged.listen((Duration p) {
-      timeToMusic = p;
-    });
-  }
-
-  @action
-  getTotalDuration() {
-    _audioPlayer.onDurationChanged.listen((event) {
-      audioDuration = event;
-    });
-  }
 
   @computed
   String get totalTimeSong => audioDuration != null
@@ -69,44 +42,14 @@ abstract class _ReproductionControllerBase with Store {
     _audioPlayer.seek(Duration(seconds: progress));
   }
 
-  actionSong(String localPath) async {
-    switch (playerState) {
-      case AudioPlayerState.PLAYING:
-        pauseSong();
-        break;
-      case AudioPlayerState.PAUSED:
-        playSong(localPath);
-        break;
-      case AudioPlayerState.STOPPED:
-        playSong(localPath);
-        break;
-      case AudioPlayerState.COMPLETED:
-        playSong(localPath);
-
-        break;
-      default:
-    }
-  }
-
-  playSong(String localPath) async {
-    await _audioPlayer.play(localPath, isLocal: true);
-  }
-
-  pauseSong() async {
-    await _audioPlayer.pause();
-  }
-
-  nextSong(List<SongInfo> listSong) async {
+  nextSong({List<SongInfo> listSong, Function play}) async {
     faixa++;
     await _audioPlayer.stop();
     if (listSong.length > faixa) {
-      print(listSong.length);
-      print(faixa);
-
-      playSong(listSong[faixa].filePath);
+      play(listSong[faixa].filePath);
     } else {
       faixa = 0;
-      playSong(listSong[faixa].filePath);
+      play(listSong[faixa].filePath);
     }
   }
 }

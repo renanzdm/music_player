@@ -1,17 +1,15 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:musicplayer/app/app_module.dart';
+import 'package:musicplayer/app/shared/widgets/button_player/button_player_widget.dart';
 
 import '../../../app_controller.dart';
 
 class BottomAppBarWidget extends StatelessWidget {
-  final SongInfo songInfo;
-
-  const BottomAppBarWidget({Key key, this.songInfo}) : super(key: key);
-
+ 
   @override
   Widget build(BuildContext context) {
     AppController _appController = AppModule.to.get();
@@ -20,7 +18,7 @@ class BottomAppBarWidget extends StatelessWidget {
       return GestureDetector(
         onTap: () {
           Modular.to.pushNamed('/reproduction',
-              arguments: _appController.listSongInfo);
+              arguments: _appController.songModel.listSongPlayer);
         },
         child: BottomAppBar(
           child: Row(
@@ -30,8 +28,8 @@ class BottomAppBarWidget extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: Text.rich(
                     TextSpan(
-                      text: _appController.songInfoPlayer != null
-                          ? _appController.songInfoPlayer.displayName
+                      text: _appController.songModel != null
+                          ? _appController.songModel.songPlayer.displayName
                           : 'Nada Reproduzindo',
                       style: GoogleFonts.roboto(
                           color: Colors.grey.shade800,
@@ -40,7 +38,7 @@ class BottomAppBarWidget extends StatelessWidget {
                       children: [
                         TextSpan(
                           text:
-                              '\n${_appController.songInfoPlayer != null ? _appController.songInfoPlayer.artist : ''}',
+                              '\n${_appController.songModel != null ? _appController.songModel.songPlayer.artist : ''}',
                           style: GoogleFonts.roboto(
                               color: Colors.grey.shade600,
                               fontWeight: FontWeight.w300,
@@ -53,16 +51,17 @@ class BottomAppBarWidget extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 4),
-                child: CircleAvatar(
-                  backgroundColor: Theme.of(context).primaryColor,
-                  radius: 20,
-                  child: Icon(
-                    Icons.play_arrow,
-                    color: Colors.grey.shade100,
-                    size: 25,
-                  ),
-                ),
+                padding: const EdgeInsets.only(right: 4,top: 4,bottom: 4),
+                child: ButtonPlayerWidget(
+                            sizeButton: 40,
+                            onTap: () {
+
+                            },
+                            icon: _appController.playerState ==
+                                    AudioPlayerState.PLAYING
+                                ? Icons.pause
+                                : Icons.play_arrow,
+                          ),
               ),
             ],
           ),

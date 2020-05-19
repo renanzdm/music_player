@@ -47,22 +47,6 @@ mixin _$ReproductionController on _ReproductionControllerBase, Store {
     });
   }
 
-  final _$playerStateAtom =
-      Atom(name: '_ReproductionControllerBase.playerState');
-
-  @override
-  AudioPlayerState get playerState {
-    _$playerStateAtom.reportRead();
-    return super.playerState;
-  }
-
-  @override
-  set playerState(AudioPlayerState value) {
-    _$playerStateAtom.reportWrite(value, super.playerState, () {
-      super.playerState = value;
-    });
-  }
-
   final _$audioDurationAtom =
       Atom(name: '_ReproductionControllerBase.audioDuration');
 
@@ -98,39 +82,6 @@ mixin _$ReproductionController on _ReproductionControllerBase, Store {
       ActionController(name: '_ReproductionControllerBase');
 
   @override
-  dynamic getPlayerState() {
-    final _$actionInfo = _$_ReproductionControllerBaseActionController
-        .startAction(name: '_ReproductionControllerBase.getPlayerState');
-    try {
-      return super.getPlayerState();
-    } finally {
-      _$_ReproductionControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic getPositionToMusic() {
-    final _$actionInfo = _$_ReproductionControllerBaseActionController
-        .startAction(name: '_ReproductionControllerBase.getPositionToMusic');
-    try {
-      return super.getPositionToMusic();
-    } finally {
-      _$_ReproductionControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  dynamic getTotalDuration() {
-    final _$actionInfo = _$_ReproductionControllerBaseActionController
-        .startAction(name: '_ReproductionControllerBase.getTotalDuration');
-    try {
-      return super.getTotalDuration();
-    } finally {
-      _$_ReproductionControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   dynamic controllerProgressMusic(double value) {
     final _$actionInfo =
         _$_ReproductionControllerBaseActionController.startAction(
@@ -146,7 +97,6 @@ mixin _$ReproductionController on _ReproductionControllerBase, Store {
   String toString() {
     return '''
 timeToMusic: ${timeToMusic},
-playerState: ${playerState},
 audioDuration: ${audioDuration},
 faixa: ${faixa},
 progressPositon: ${progressPositon},

@@ -16,7 +16,7 @@ import 'package:musicplayer/app/shared/widgets/playlist/playlist_controller.dart
 class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
-        Bind((i) => AppController()),
+        Bind((i) => AppController(i.get<AudioPlayer>())),
         Bind((i) => ButtonPlayerController()),
         Bind((i) => BottomAppBarController()),
         Bind((i) => PlaylistController()),
