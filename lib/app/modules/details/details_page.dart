@@ -34,6 +34,7 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBarWidget(
         height: 50,
         iconLeft: Icons.arrow_back_ios,
@@ -86,6 +87,8 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsController> {
                         itemBuilder: (context, index) => Hero(
                           tag: list[index].id,
                           child: Card(
+                            elevation: 5,
+                            color: Theme.of(context).disabledColor,
                             child: ListTile(
                               onTap: () async {
                                 await controller
@@ -94,22 +97,31 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsController> {
                                     '/reproduction',
                                     arguments: list);
                                 _appController.getSongPlayer(result);
-                                print('${_appController.songModel.playerState}');
+                                print(
+                                    '${_appController.songModel.playerState}');
                               },
                               title: Text(
                                 list[index].title,
-                                style:
-                                    GoogleFonts.openSansCondensed(fontSize: 18),
+                                style: GoogleFonts.openSansCondensed(
+                                  fontSize: 18,
+                                  color: Theme.of(context).textSelectionColor,
+                                ),
                               ),
-                              subtitle: Text(list[index].artist,
-                                  style: GoogleFonts.openSansCondensed()),
+                              subtitle: Text(
+                                list[index].artist,
+                                style: GoogleFonts.openSansCondensed(
+                                  textStyle: TextStyle(
+                                      color:
+                                          Theme.of(context).textSelectionColor),
+                                ),
+                              ),
                               trailing: GestureDetector(
                                 onTap: () {
                                   print('teste');
                                 },
                                 child: Icon(
                                   Icons.more_vert,
-                                  color: Theme.of(context).primaryColor,
+                                  color: Theme.of(context).textSelectionColor,
                                 ),
                               ),
                               leading: CircleAvatar(

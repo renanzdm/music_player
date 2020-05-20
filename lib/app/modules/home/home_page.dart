@@ -24,18 +24,18 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   //use 'controller' variable to access controller
   AppController _appController = AppModule.to.get();
 
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 4,
       child: Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
         appBar: AppBarWidget(
-              onTapRigth: (){
-           print(_appController.playerState);
-    print(_appController.timeToMusic);
-    print(_appController.audioDuration);
-        },
+          onTapRigth: () {
+            print(_appController.playerState);
+            print(_appController.timeToMusic);
+            print(_appController.audioDuration);
+          },
           height: 50,
           iconLeft: Icons.search,
           iconRigth: Icons.more_vert,
@@ -51,16 +51,18 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
               child: Text(
                 'Biblioteca',
                 style: GoogleFonts.roboto(
-                    fontSize: 24, color: Theme.of(context).primaryColor),
+                  fontSize: 24,
+                  color: Theme.of(context).textSelectionColor,
+                ),
               ),
             ),
             TabBar(
                 indicatorSize: TabBarIndicatorSize.label,
                 labelStyle: GoogleFonts.roboto(fontWeight: FontWeight.w400),
-                labelColor: Theme.of(context).primaryColor,
+                labelColor: Theme.of(context).textSelectionColor,
                 unselectedLabelColor:
-                    Theme.of(context).primaryColor.withOpacity(0.5),
-                indicatorColor: Theme.of(context).primaryColor,
+                    Theme.of(context).textSelectionColor.withOpacity(0.5),
+                indicatorColor: Theme.of(context).accentColor,
                 tabs: [
                   Tab(
                     text: 'Album',

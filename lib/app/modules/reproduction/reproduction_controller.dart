@@ -10,7 +10,10 @@ class ReproductionController = _ReproductionControllerBase
 abstract class _ReproductionControllerBase with Store {
   final AudioPlayer _audioPlayer;
 
-  _ReproductionControllerBase(this._audioPlayer);
+  _ReproductionControllerBase(this._audioPlayer) {
+    getTotalDuration();
+    getPositionToMusic();
+  }
 
   @observable
   Duration timeToMusic = Duration();
@@ -18,6 +21,28 @@ abstract class _ReproductionControllerBase with Store {
   Duration audioDuration = Duration();
   @observable
   int faixa = 0;
+
+  @action
+  getPositionToMusic() {
+    _audioPlayer.onAudioPositionChanged.listen((Duration p) {
+      timeToMusic = p;
+    });
+    print(timeToMusic);
+  }
+
+  @action
+  getTotalDuration() {
+    _audioPlayer.onDurationChanged.listen((event) {
+      audioDuration = event;
+    });
+    print(audioDuration);
+  }
+
+  @action
+  controllerProgressMusic(double value) {
+    int progress = (value * audioDuration.inSeconds).toInt();
+    _audioPlayer.seek(Duration(seconds: progress));
+  }
 
   @computed
   String get progressPositon => timeToMusic != null
@@ -36,20 +61,25 @@ abstract class _ReproductionControllerBase with Store {
           '${audioDuration.inSeconds.remainder(60)}'
       : '';
 
-  @action
-  controllerProgressMusic(double value) {
-    int progress = (value * audioDuration.inSeconds).toInt();
-    _audioPlayer.seek(Duration(seconds: progress));
-  }
-
-  nextSong({List<SongInfo> listSong, Function play}) async {
+  nextSong({List<SongInfo> listSong}) async {
     faixa++;
     await _audioPlayer.stop();
     if (listSong.length > faixa) {
-      play(listSong[faixa].filePath);
+      await _audioPlayer.play(listSong[faixa].filePath);
     } else {
       faixa = 0;
-      play(listSong[faixa].filePath);
+      await _audioPlayer.play(listSong[faixa].filePath);
+    }
+  }
+
+  previousSong({List<SongInfo> listSong}) async {
+    faixa--;
+    await _audioPlayer.stop();
+    if (faixa == -1) {
+      faixa = 0;
+      await _audioPlayer.play(listSong[faixa].filePath);
+    } else {
+      await _audioPlayer.play(listSong[faixa].filePath);
     }
   }
 }

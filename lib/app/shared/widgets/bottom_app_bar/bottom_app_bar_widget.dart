@@ -9,7 +9,6 @@ import 'package:musicplayer/app/shared/widgets/button_player/button_player_widge
 import '../../../app_controller.dart';
 
 class BottomAppBarWidget extends StatelessWidget {
- 
   @override
   Widget build(BuildContext context) {
     AppController _appController = AppModule.to.get();
@@ -20,7 +19,13 @@ class BottomAppBarWidget extends StatelessWidget {
           Modular.to.pushNamed('/reproduction',
               arguments: _appController.songModel.listSongPlayer);
         },
-        child: BottomAppBar(
+        child: Container(
+          margin: EdgeInsets.only(left: 8, right: 8),
+          padding: EdgeInsets.all(4),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            color: Theme.of(context).disabledColor,
+          ),
           child: Row(
             children: <Widget>[
               Expanded(
@@ -32,16 +37,16 @@ class BottomAppBarWidget extends StatelessWidget {
                           ? _appController.songModel.songPlayer.displayName
                           : 'Nada Reproduzindo',
                       style: GoogleFonts.roboto(
-                          color: Colors.grey.shade800,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16),
+                          color: Theme.of(context).textSelectionColor,
+                          fontWeight: FontWeight.w200,
+                          fontSize: 14),
                       children: [
                         TextSpan(
                           text:
                               '\n${_appController.songModel != null ? _appController.songModel.songPlayer.artist : ''}',
                           style: GoogleFonts.roboto(
-                              color: Colors.grey.shade600,
-                              fontWeight: FontWeight.w300,
+                              color: Theme.of(context).textSelectionColor,
+                              fontWeight: FontWeight.w100,
                               fontSize: 12),
                         ),
                       ],
@@ -50,18 +55,16 @@ class BottomAppBarWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(right: 4,top: 4,bottom: 4),
-                child: ButtonPlayerWidget(
-                            sizeButton: 40,
-                            onTap: () {
-
-                            },
-                            icon: _appController.playerState ==
-                                    AudioPlayerState.PLAYING
-                                ? Icons.pause
-                                : Icons.play_arrow,
-                          ),
+              ButtonPlayerWidget(
+                sizeButton: 40,
+                onTap: () {
+                  _appController.actionSong(
+                      _appController.songModel.songPlayer.filePath,
+                      _appController.playerState);
+                },
+                icon: _appController.playerState == AudioPlayerState.PLAYING
+                    ? Icons.pause
+                    : Icons.play_arrow,
               ),
             ],
           ),

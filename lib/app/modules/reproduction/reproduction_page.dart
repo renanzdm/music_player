@@ -31,15 +31,13 @@ class _ReproductionPageState
   void initState() {
     controller.timeToMusic = _appController.timeToMusic;
     controller.audioDuration = _appController.audioDuration;
-    print(_appController.audioDuration);
-    print(_appController.timeToMusic);
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBarWidget(
         height: 50,
         iconLeft: Icons.arrow_back_ios,
@@ -95,7 +93,9 @@ class _ReproductionPageState
                           text: widget
                               .listSongInfo[controller.faixa]?.displayName,
                           style: GoogleFonts.roboto(
-                              fontSize: 15, fontWeight: FontWeight.w700),
+                              fontSize: 15,
+                              fontWeight: FontWeight.w300,
+                              color: Theme.of(context).textSelectionColor),
                           children: [
                             TextSpan(
                               text:
@@ -120,9 +120,9 @@ class _ReproductionPageState
                           onChanged: (value) {
                             controller.controllerProgressMusic(value);
                           },
-                          activeColor: Theme.of(context).primaryColor,
+                          activeColor: Theme.of(context).accentColor,
                           inactiveColor:
-                              Theme.of(context).primaryColor.withOpacity(0.5),
+                              Theme.of(context).accentColor.withOpacity(0.5),
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -130,12 +130,22 @@ class _ReproductionPageState
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 24),
-                              child: Text(controller.progressPositon),
+                              child: Text(
+                                controller.progressPositon,
+                                style: TextStyle(
+                                    color:
+                                        Theme.of(context).textSelectionColor),
+                              ),
                             ),
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 24),
-                              child: Text(controller.totalTimeSong),
+                              child: Text(
+                                controller.totalTimeSong,
+                                style: TextStyle(
+                                    color:
+                                        Theme.of(context).textSelectionColor),
+                              ),
                             ),
                           ],
                         )
@@ -147,14 +157,19 @@ class _ReproductionPageState
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
                           ButtonPlayerWidget(
-                            onTap: () {},
+                            onTap: () {
+                              controller.previousSong(
+                                  listSong: widget.listSongInfo);
+                            },
                             icon: Icons.skip_previous,
                           ),
                           ButtonPlayerWidget(
                             sizeButton: 70,
                             onTap: () {
-                              _appController.actionSong(widget
-                                  .listSongInfo[controller.faixa]?.filePath,_appController.playerState);
+                              _appController.actionSong(
+                                  widget
+                                      .listSongInfo[controller.faixa]?.filePath,
+                                  _appController.playerState);
                             },
                             icon: _appController.playerState ==
                                     AudioPlayerState.PLAYING
@@ -163,8 +178,8 @@ class _ReproductionPageState
                           ),
                           ButtonPlayerWidget(
                             onTap: () {
-                              controller.nextSong(play:_appController.playSong(widget
-                                  .listSongInfo[controller.faixa]?.filePath));
+                              controller.nextSong(
+                                  listSong: widget.listSongInfo);
                             },
                             icon: Icons.skip_next,
                           ),

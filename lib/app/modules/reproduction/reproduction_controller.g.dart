@@ -82,6 +82,28 @@ mixin _$ReproductionController on _ReproductionControllerBase, Store {
       ActionController(name: '_ReproductionControllerBase');
 
   @override
+  dynamic getPositionToMusic() {
+    final _$actionInfo = _$_ReproductionControllerBaseActionController
+        .startAction(name: '_ReproductionControllerBase.getPositionToMusic');
+    try {
+      return super.getPositionToMusic();
+    } finally {
+      _$_ReproductionControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic getTotalDuration() {
+    final _$actionInfo = _$_ReproductionControllerBaseActionController
+        .startAction(name: '_ReproductionControllerBase.getTotalDuration');
+    try {
+      return super.getTotalDuration();
+    } finally {
+      _$_ReproductionControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic controllerProgressMusic(double value) {
     final _$actionInfo =
         _$_ReproductionControllerBaseActionController.startAction(

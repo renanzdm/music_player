@@ -5,9 +5,12 @@ class ButtonPlayerWidget extends StatelessWidget {
   final Function onTap;
   final double sizeButton;
 
-  const ButtonPlayerWidget(
-      {Key key, this.icon, this.onTap, this.sizeButton = 50,})
-      : super(key: key);
+  const ButtonPlayerWidget({
+    Key key,
+    this.icon,
+    this.onTap,
+    this.sizeButton = 50,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -15,11 +18,14 @@ class ButtonPlayerWidget extends StatelessWidget {
       child: Container(
         height: sizeButton,
         width: sizeButton,
-        child: Icon(icon,color: Colors.white,),
+        child: Icon(
+          icon,
+          color: Colors.white,
+        ),
         decoration: BoxDecoration(
-            color:  Theme.of(context).primaryColor,
+            color: Theme.of(context).accentColor,
             shape: BoxShape.circle,
-            border: Border.all(color: Theme.of(context).primaryColor, width: 2)),
+            border: Border.all(color: Theme.of(context).accentColor, width: 2)),
       ),
     );
   }

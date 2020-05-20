@@ -20,6 +20,7 @@ class _AlbumPageState extends ModularState<AlbumPage, AlbumController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       body: LayoutBuilder(
         builder: (context, constraints) {
           final double height = constraints.maxHeight;
