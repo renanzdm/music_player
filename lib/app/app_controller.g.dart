@@ -9,6 +9,14 @@ part of 'app_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$AppController on _AppControllerBase, Store {
+  Computed<int> _$getFaixaComputed;
+
+  @override
+  int get getFaixa =>
+      (_$getFaixaComputed ??= Computed<int>(() => super.getFaixa,
+              name: '_AppControllerBase.getFaixa'))
+          .value;
+
   final _$songModelAtom = Atom(name: '_AppControllerBase.songModel');
 
   @override
@@ -122,7 +130,8 @@ mixin _$AppController on _AppControllerBase, Store {
 songModel: ${songModel},
 timeToMusic: ${timeToMusic},
 playerState: ${playerState},
-audioDuration: ${audioDuration}
+audioDuration: ${audioDuration},
+getFaixa: ${getFaixa}
     ''';
   }
 }

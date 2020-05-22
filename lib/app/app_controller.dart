@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
 import 'package:musicplayer/app/shared/model/SongModel.dart';
 
@@ -15,7 +16,7 @@ abstract class _AppControllerBase with Store {
   }
 
   @observable
-  SongModel songModel;
+  SongModel songModel = SongModel();
   @observable
   Duration timeToMusic = Duration();
   @observable
@@ -25,15 +26,20 @@ abstract class _AppControllerBase with Store {
 
   @action
   getSongPlayer(SongModel value) {
-    songModel = value;
+    songModel = songModel.copyWith(
+        indexFaixa: value.indexFaixa,
+        listSongPlayer: value.listSongPlayer,
+        playerState: value.playerState);
   }
+
+  @computed
+  int get getFaixa => songModel.indexFaixa;
 
   @action
   getPositionToMusic() {
     _audioPlayer.onAudioPositionChanged.listen((Duration p) {
       timeToMusic = p;
     });
-    print(timeToMusic);
   }
 
   @action
@@ -41,7 +47,6 @@ abstract class _AppControllerBase with Store {
     _audioPlayer.onPlayerStateChanged.listen((AudioPlayerState event) {
       playerState = event;
     });
-    print(playerState);
   }
 
   @action
@@ -49,30 +54,21 @@ abstract class _AppControllerBase with Store {
     _audioPlayer.onDurationChanged.listen((event) {
       audioDuration = event;
     });
-    print(audioDuration);
-  }
-
-  playSong(String localPath) async {
-    await _audioPlayer.play(localPath, isLocal: true);
-  }
-
-  pauseSong() {
-     _audioPlayer.pause();
   }
 
   actionSong(String localPath, AudioPlayerState playerState) async {
     switch (playerState) {
       case AudioPlayerState.PLAYING:
-        pauseSong();
+        await _audioPlayer.pause();
         break;
       case AudioPlayerState.PAUSED:
-        playSong(localPath);
+        await _audioPlayer.play(localPath, isLocal: true);
         break;
       case AudioPlayerState.STOPPED:
-        playSong(localPath);
+        await _audioPlayer.play(localPath, isLocal: true);
         break;
       case AudioPlayerState.COMPLETED:
-        playSong(localPath);
+        await _audioPlayer.play(localPath, isLocal: true);
 
         break;
       default:

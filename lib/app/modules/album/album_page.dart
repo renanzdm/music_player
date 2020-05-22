@@ -28,7 +28,7 @@ class _AlbumPageState extends ModularState<AlbumPage, AlbumController> {
           return Column(
             children: <Widget>[
               Container(
-                height: height * 0.45,
+                height: height * 0.4,
                 width: width,
                 child: Observer(
                   builder: (_) {
@@ -39,7 +39,7 @@ class _AlbumPageState extends ModularState<AlbumPage, AlbumController> {
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (_, index) {
                           return CardTypesWidget(
-                            width: width * 0.5,
+                            width: width * 0.4,
                             albumInfo: list[index],
                           );
                         },

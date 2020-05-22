@@ -23,11 +23,15 @@ abstract class _ReproductionControllerBase with Store {
   int faixa = 0;
 
   @action
+  changeFaixa(int indexFaixa) {
+    faixa = indexFaixa;
+  }
+
+  @action
   getPositionToMusic() {
     _audioPlayer.onAudioPositionChanged.listen((Duration p) {
       timeToMusic = p;
     });
-    print(timeToMusic);
   }
 
   @action
@@ -35,7 +39,6 @@ abstract class _ReproductionControllerBase with Store {
     _audioPlayer.onDurationChanged.listen((event) {
       audioDuration = event;
     });
-    print(audioDuration);
   }
 
   @action

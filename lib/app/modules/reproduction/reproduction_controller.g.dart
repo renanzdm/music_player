@@ -82,6 +82,17 @@ mixin _$ReproductionController on _ReproductionControllerBase, Store {
       ActionController(name: '_ReproductionControllerBase');
 
   @override
+  dynamic changeFaixa(int indexFaixa) {
+    final _$actionInfo = _$_ReproductionControllerBaseActionController
+        .startAction(name: '_ReproductionControllerBase.changeFaixa');
+    try {
+      return super.changeFaixa(indexFaixa);
+    } finally {
+      _$_ReproductionControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic getPositionToMusic() {
     final _$actionInfo = _$_ReproductionControllerBaseActionController
         .startAction(name: '_ReproductionControllerBase.getPositionToMusic');

@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
@@ -10,14 +11,14 @@ import 'package:musicplayer/app/app_module.dart';
 import 'package:musicplayer/app/shared/model/SongModel.dart';
 import 'package:musicplayer/app/shared/widgets/app_bar/app_bar_widget.dart';
 import 'package:musicplayer/app/shared/widgets/button_player/button_player_widget.dart';
+
 import 'reproduction_controller.dart';
 
 class ReproductionPage extends StatefulWidget {
-  final String title;
   final List<SongInfo> listSongInfo;
-  const ReproductionPage(
-      {Key key, this.title = "Reproduction", this.listSongInfo})
-      : super(key: key);
+
+  final String indexFaixa;
+  const ReproductionPage({this.listSongInfo, this.indexFaixa});
 
   @override
   _ReproductionPageState createState() => _ReproductionPageState();
@@ -26,9 +27,11 @@ class ReproductionPage extends StatefulWidget {
 class _ReproductionPageState
     extends ModularState<ReproductionPage, ReproductionController> {
   AppController _appController = AppModule.to.get();
+  SongModel songModel;
 
   @override
   void initState() {
+    controller.changeFaixa(int.parse(widget.indexFaixa));
     controller.timeToMusic = _appController.timeToMusic;
     controller.audioDuration = _appController.audioDuration;
     super.initState();
@@ -43,10 +46,12 @@ class _ReproductionPageState
         iconLeft: Icons.arrow_back_ios,
         iconRigth: Icons.library_music,
         onTapLeft: () {
-          SongModel songModel = SongModel(
-              songPlayer: widget.listSongInfo[controller.faixa],
-              listSongPlayer: widget.listSongInfo,
-              playerState: _appController.playerState);
+          songModel = SongModel(
+            indexFaixa: controller.faixa,
+            listSongPlayer: widget.listSongInfo,
+            playerState: _appController.playerState,
+          );
+          _appController.getSongPlayer(songModel);
           Modular.to.pop(songModel);
         },
       ),
@@ -64,7 +69,7 @@ class _ReproductionPageState
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Hero(
-                      tag: widget.listSongInfo[controller.faixa]?.id,
+                      tag: widget.listSongInfo[controller.faixa].id,
                       child: Container(
                         height: height * 0.4,
                         width: height * 0.4,

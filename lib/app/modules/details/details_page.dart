@@ -5,6 +5,7 @@ import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:musicplayer/app/shared/model/SongModel.dart';
 import 'package:musicplayer/app/shared/widgets/app_bar/app_bar_widget.dart';
 import '../../app_controller.dart';
 import '../../app_module.dart';
@@ -93,12 +94,8 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsController> {
                               onTap: () async {
                                 await controller
                                     .playSongSelected(list[index].filePath);
-                                var result = await Modular.to.pushNamed(
-                                    '/reproduction',
+                                Modular.to.pushNamed('/reproduction/$index',
                                     arguments: list);
-                                _appController.getSongPlayer(result);
-                                print(
-                                    '${_appController.songModel.playerState}');
                               },
                               title: Text(
                                 list[index].title,

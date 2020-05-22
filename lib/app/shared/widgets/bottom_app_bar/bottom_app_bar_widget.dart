@@ -16,14 +16,15 @@ class BottomAppBarWidget extends StatelessWidget {
     return Observer(builder: (_) {
       return GestureDetector(
         onTap: () {
-          Modular.to.pushNamed('/reproduction',
+          Modular.to.pushNamed('/reproduction/${_appController.getFaixa}',
               arguments: _appController.songModel.listSongPlayer);
         },
         child: Container(
-          margin: EdgeInsets.only(left: 8, right: 8),
+          height: 50,
+          margin: EdgeInsets.only(left: 8, right: 8, bottom: 10),
           padding: EdgeInsets.all(4),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(14),
             color: Theme.of(context).disabledColor,
           ),
           child: Row(
@@ -33,8 +34,11 @@ class BottomAppBarWidget extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: Text.rich(
                     TextSpan(
-                      text: _appController.songModel != null
-                          ? _appController.songModel.songPlayer.displayName
+                      text: _appController.songModel.indexFaixa != null
+                          ? _appController
+                              .songModel
+                              .listSongPlayer[_appController.getFaixa]
+                              .displayName
                           : 'Nada Reproduzindo',
                       style: GoogleFonts.roboto(
                           color: Theme.of(context).textSelectionColor,
@@ -43,7 +47,7 @@ class BottomAppBarWidget extends StatelessWidget {
                       children: [
                         TextSpan(
                           text:
-                              '\n${_appController.songModel != null ? _appController.songModel.songPlayer.artist : ''}',
+                              '\n${_appController.songModel.indexFaixa != null ? _appController.songModel.listSongPlayer[_appController.getFaixa].artist : ''}',
                           style: GoogleFonts.roboto(
                               color: Theme.of(context).textSelectionColor,
                               fontWeight: FontWeight.w100,
@@ -59,7 +63,8 @@ class BottomAppBarWidget extends StatelessWidget {
                 sizeButton: 40,
                 onTap: () {
                   _appController.actionSong(
-                      _appController.songModel.songPlayer.filePath,
+                      _appController.songModel
+                          .listSongPlayer[_appController.getFaixa].filePath,
                       _appController.playerState);
                 },
                 icon: _appController.playerState == AudioPlayerState.PLAYING
