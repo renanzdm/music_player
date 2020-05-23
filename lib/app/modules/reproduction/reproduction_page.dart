@@ -19,6 +19,7 @@ import 'reproduction_controller.dart';
 class ReproductionPage extends StatefulWidget {
   final List<SongInfo> listSongInfo;
   final String indexFaixa;
+
   const ReproductionPage({this.listSongInfo, this.indexFaixa});
 
   @override
@@ -26,7 +27,8 @@ class ReproductionPage extends StatefulWidget {
 }
 
 class _ReproductionPageState
-    extends ModularState<ReproductionPage, ReproductionController> {
+    extends ModularState<ReproductionPage, ReproductionController>
+    with SingleTickerProviderStateMixin {
   AppController _appController = AppModule.to.get();
   SongModel songModel;
 
@@ -78,31 +80,31 @@ class _ReproductionPageState
                     children: <Widget>[
                       Hero(
                         tag: widget.listSongInfo[controller.faixa].id,
-                        child: AnimatedContainer(
-                          transform: Matrix4.compose(
-                              vector.Vector3(0, 0, 0),
-                              vector.Quaternion.euler(0, 0, 0),
-                              vector.Vector3(1, 1, 1)),
-                          height: height * 0.4,
-                          duration: Duration(milliseconds: 500),
-                          width: height * 0.4,
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: (widget.listSongInfo[controller.faixa]
-                                            ?.albumArtwork !=
-                                        null)
-                                    ? FileImage(
-                                        File(widget
-                                            .listSongInfo[controller.faixa]
-                                            ?.albumArtwork),
-                                      )
-                                    : AssetImage(
-                                        'assets/note.png',
-                                      ),
-                                fit: BoxFit.fill,
-                                alignment: Alignment.center),
-                            color: Colors.blue,
-                            shape: BoxShape.circle,
+                        child: Transform.rotate(
+                          angle:
+                              controller.progressBar*5,
+                          child: AnimatedContainer(
+                            height: height * 0.4,
+                            duration: Duration(milliseconds: 500),
+                            width: height * 0.4,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: (widget.listSongInfo[controller.faixa]
+                                              ?.albumArtwork !=
+                                          null)
+                                      ? FileImage(
+                                          File(widget
+                                              .listSongInfo[controller.faixa]
+                                              ?.albumArtwork),
+                                        )
+                                      : AssetImage(
+                                          'assets/note.png',
+                                        ),
+                                  fit: BoxFit.fill,
+                                  alignment: Alignment.center),
+                              color: Colors.blue,
+                              shape: BoxShape.circle,
+                            ),
                           ),
                         ),
                       ),
