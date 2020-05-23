@@ -5,8 +5,8 @@ import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:musicplayer/app/shared/model/SongModel.dart';
 import 'package:musicplayer/app/shared/widgets/app_bar/app_bar_widget.dart';
+
 import '../../app_controller.dart';
 import '../../app_module.dart';
 import 'details_controller.dart';
@@ -51,30 +51,25 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsController> {
           return Column(
             children: <Widget>[
               Container(
-                height: height * 0.4,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Hero(
-                      tag: widget.albumInfo.id,
-                      child: Container(
-                        margin: EdgeInsets.symmetric(vertical: 12),
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: (widget.albumInfo.albumArt != null)
-                                    ? FileImage(File(widget.albumInfo.albumArt))
-                                    : AssetImage(
-                                        'assets/note.png',
-                                      ),
-                                fit: BoxFit.fill,
-                                alignment: Alignment.center),
-                            borderRadius: BorderRadius.circular(20),
-                            color: Colors.indigoAccent),
-                        height: height * 0.30,
-                        width: width * 0.9,
-                      ),
-                    ),
-                  ],
+                height: height * 0.35,
+                child: Hero(
+                  tag: widget.albumInfo.id,
+                  child: Container(
+                    margin: EdgeInsets.symmetric(vertical: 12),
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: (widget.albumInfo.albumArt != null)
+                                ? FileImage(File(widget.albumInfo.albumArt))
+                                : AssetImage(
+                                    'assets/note.png',
+                                  ),
+                            fit: BoxFit.fill,
+                            alignment: Alignment.center),
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.indigoAccent),
+                    height: height * 0.2,
+                    width: width * 0.9,
+                  ),
                 ),
               ),
               Container(
@@ -84,6 +79,7 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsController> {
                     List<SongInfo> list = controller.songs;
                     if (list != null) {
                       return ListView.builder(
+                        padding: EdgeInsets.only(left: 8, right: 8),
                         itemCount: list.length,
                         itemBuilder: (context, index) => Hero(
                           tag: list[index].id,

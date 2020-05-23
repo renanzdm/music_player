@@ -15,10 +15,12 @@ class BottomAppBarWidget extends StatelessWidget {
 
     return Observer(builder: (_) {
       return GestureDetector(
-        onTap: () {
-          Modular.to.pushNamed('/reproduction/${_appController.getFaixa}',
-              arguments: _appController.songModel.listSongPlayer);
-        },
+        onTap: _appController.getFaixa != null
+            ? () {
+                Modular.to.pushNamed('/reproduction/${_appController.getFaixa}',
+                    arguments: _appController.songModel.listSongPlayer);
+              }
+            : null,
         child: Container(
           height: 50,
           margin: EdgeInsets.only(left: 8, right: 8, bottom: 10),
