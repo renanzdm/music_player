@@ -34,25 +34,38 @@ class _ReproductionPageState
   AppController _appController = AppModule.to.get();
   SongModel songModel;
   static const size = const Size(100.0, 5.0);
-  final random = Random();
+  final random = new Random();
   AnimationController animation;
-  VibesTween tween;
 
   @override
   void initState() {
+    super.initState();
     controller.changeFaixa(int.parse(widget.indexFaixa));
     controller.timeToMusic = _appController.timeToMusic;
     controller.audioDuration = _appController.audioDuration;
-    animation = AnimationController(
-      duration: const Duration(milliseconds: 1000),
+    animation = new AnimationController(
+      duration: const Duration(milliseconds: 500),
       vsync: this,
     );
-    tween = VibesTween(
-      Wave.empty(size),
-      Wave.random(size, random),
+    controller.tween = new VibesTween(
+      new Wave.empty(size),
+      new Wave.random(size, random),
     );
     animation.forward();
-    super.initState();
+    animation.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        controller.changeTween(animation, size, random);
+      } else if (_appController.playerState == AudioPlayerState.PAUSED ||
+          _appController.playerState == AudioPlayerState.COMPLETED) {
+        animation.stop();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    animation.dispose();
+    super.dispose();
   }
 
   Future<bool> _onWillPop() async {
@@ -66,21 +79,9 @@ class _ReproductionPageState
     return true;
   }
 
-  void changeWave() {
-    if (animation.status == AnimationStatus.completed) {
-      setState(() {
-      tween = VibesTween(
-        tween.evaluate(animation),
-        Wave.random(size, random),
-      );
-    });
-    animation.forward(from: 0.0);
-    }
-    
-  }
-
   @override
   Widget build(BuildContext context) {
+    print('buildou');
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
@@ -91,9 +92,6 @@ class _ReproductionPageState
           iconRigth: Icons.library_music,
           onTapLeft: () {
             Modular.to.maybePop(songModel);
-          },
-          onTapRigth: () {
-            changeWave();
           },
         ),
         body: LayoutBuilder(
@@ -114,7 +112,18 @@ class _ReproductionPageState
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
-                            _buildWaves(size, tween, animation),
+                            Observer(builder: (_) {
+                              return Container(
+                                width: 340.00,
+                                height: 340.00,
+                                padding: const EdgeInsets.all(60.0),
+                                child: CustomPaint(
+                                  size: size,
+                                  painter: WavesPainter(
+                                      controller.tween.animate(animation)),
+                                ),
+                              );
+                            }),
                             Container(
                               height: height * 0.35,
                               width: height * 0.35,
@@ -225,6 +234,7 @@ class _ReproductionPageState
                                     widget.listSongInfo[controller.faixa]
                                         ?.filePath,
                                     _appController.playerState);
+                                animation.forward();
                               },
                               icon: _appController.playerState ==
                                       AudioPlayerState.PLAYING
@@ -251,16 +261,4 @@ class _ReproductionPageState
       ),
     );
   }
-}
-
-Widget _buildWaves(Size size, VibesTween tween, AnimationController animation) {
-  return Container(
-    width: 340.00,
-    height: 340.00,
-    padding: const EdgeInsets.all(60.0),
-    child: CustomPaint(
-      size: size,
-      painter: WavesPainter(tween.animate(animation)),
-    ),
-  );
 }

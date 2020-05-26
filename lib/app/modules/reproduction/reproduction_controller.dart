@@ -1,6 +1,12 @@
+import 'dart:math';
+import 'dart:ui';
+
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/animation.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:mobx/mobx.dart';
+import 'package:musicplayer/app/shared/model/waves_model.dart';
+import 'package:musicplayer/app/shared/widgets/waves/waves_widget.dart';
 
 part 'reproduction_controller.g.dart';
 
@@ -21,6 +27,17 @@ abstract class _ReproductionControllerBase with Store {
   Duration audioDuration = Duration();
   @observable
   int faixa = 0;
+  @observable
+  VibesTween tween;
+
+  @action
+  changeTween(AnimationController animation, Size size, Random random) {
+    tween = VibesTween(
+      tween.evaluate(animation),
+      new Wave.random(size, random),
+    );
+    animation.forward(from: 0.0);
+  }
 
   @action
   changeFaixa(int indexFaixa) {
@@ -85,4 +102,5 @@ abstract class _ReproductionControllerBase with Store {
       await _audioPlayer.play(listSong[faixa].filePath);
     }
   }
+  
 }

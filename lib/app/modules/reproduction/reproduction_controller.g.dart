@@ -78,8 +78,34 @@ mixin _$ReproductionController on _ReproductionControllerBase, Store {
     });
   }
 
+  final _$tweenAtom = Atom(name: '_ReproductionControllerBase.tween');
+
+  @override
+  VibesTween get tween {
+    _$tweenAtom.reportRead();
+    return super.tween;
+  }
+
+  @override
+  set tween(VibesTween value) {
+    _$tweenAtom.reportWrite(value, super.tween, () {
+      super.tween = value;
+    });
+  }
+
   final _$_ReproductionControllerBaseActionController =
       ActionController(name: '_ReproductionControllerBase');
+
+  @override
+  dynamic changeTween(AnimationController animation, Size size, Random random) {
+    final _$actionInfo = _$_ReproductionControllerBaseActionController
+        .startAction(name: '_ReproductionControllerBase.changeTween');
+    try {
+      return super.changeTween(animation, size, random);
+    } finally {
+      _$_ReproductionControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic changeFaixa(int indexFaixa) {
@@ -132,6 +158,7 @@ mixin _$ReproductionController on _ReproductionControllerBase, Store {
 timeToMusic: ${timeToMusic},
 audioDuration: ${audioDuration},
 faixa: ${faixa},
+tween: ${tween},
 progressPositon: ${progressPositon},
 progressBar: ${progressBar},
 totalTimeSong: ${totalTimeSong}
