@@ -1,68 +1,6 @@
-import 'dart:math';
-
+import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
-
 import 'package:musicplayer/app/shared/model/waves_model.dart';
-
-class WavesWidget extends StatefulWidget {
-  final double timeMusic;
-
-  const WavesWidget({Key key, this.timeMusic}) : super(key: key);
-
-  @override
-  _WavesWidgetState createState() => _WavesWidgetState();
-}
-
-class _WavesWidgetState extends State<WavesWidget>
-    with TickerProviderStateMixin {
-  static const size = const Size(150.0, 5.0);
-  final random = Random();
-  AnimationController animation;
-  VibesTween tween;
-
-  @override
-  void initState() {
-    super.initState();
-    animation = AnimationController(
-      duration: const Duration(milliseconds: 600),
-      vsync: this,
-    );
-    tween = VibesTween(
-      Wave.empty(size),
-      Wave.random(size, random),
-    );
-    animation.forward();
-  }
-
-  @override
-  void dispose() {
-    animation.dispose();
-    super.dispose();
-  }
-
-  void changeWave() {
-    setState(() {
-      tween = VibesTween(
-        tween.evaluate(animation),
-        Wave.random(size, random),
-      );
-    });
-    animation.forward(from: 0.0);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 340.00,
-      height: 340.00,
-      padding: const EdgeInsets.all(55.0),
-      child: CustomPaint(
-        size: size,
-        painter: WavesPainter(tween.animate(animation)),
-      ),
-    );
-  }
-}
 
 class VibesTween extends Tween<Wave> {
   VibesTween(Wave begin, Wave end) : super(begin: begin, end: end);

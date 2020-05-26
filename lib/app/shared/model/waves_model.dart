@@ -29,12 +29,12 @@ class Wave {
   factory Wave.random(Size size, Random random) {
     final waveLenght = 150;
 
-    final color = Colors.primaries;
+    final color = Colors.primaries[Random().nextInt(17)];
     final bars = new List.generate(
       waveLenght,
       (i) => new Vibes(
         random.nextDouble(),
-        color[Random().nextInt(17)],
+        color,
       ),
     );
     return new Wave(bars);
