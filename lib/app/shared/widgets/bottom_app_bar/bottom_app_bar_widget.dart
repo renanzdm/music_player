@@ -57,7 +57,7 @@ class BottomAppBarWidget extends StatelessWidget {
                         ),
                       ],
                     ),
-                    maxLines: 3,
+                    maxLines: 2,
                   ),
                 ),
               ),

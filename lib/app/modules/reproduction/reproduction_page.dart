@@ -12,7 +12,7 @@ import 'package:musicplayer/app/app_module.dart';
 import 'package:musicplayer/app/shared/model/SongModel.dart';
 import 'package:musicplayer/app/shared/widgets/app_bar/app_bar_widget.dart';
 import 'package:musicplayer/app/shared/widgets/button_player/button_player_widget.dart';
-import 'package:vector_math/vector_math_64.dart' as vector;
+import 'package:musicplayer/app/shared/widgets/waves/waves_widget.dart';
 
 import 'reproduction_controller.dart';
 
@@ -26,6 +26,8 @@ class ReproductionPage extends StatefulWidget {
   _ReproductionPageState createState() => _ReproductionPageState();
 }
 
+WavesWidget waves = WavesWidget();
+
 class _ReproductionPageState
     extends ModularState<ReproductionPage, ReproductionController>
     with SingleTickerProviderStateMixin {
@@ -37,6 +39,7 @@ class _ReproductionPageState
     controller.changeFaixa(int.parse(widget.indexFaixa));
     controller.timeToMusic = _appController.timeToMusic;
     controller.audioDuration = _appController.audioDuration;
+
     super.initState();
   }
 
@@ -80,32 +83,36 @@ class _ReproductionPageState
                     children: <Widget>[
                       Hero(
                         tag: widget.listSongInfo[controller.faixa].id,
-                        child: Transform.rotate(
-                          angle:
-                              controller.progressBar*5,
-                          child: AnimatedContainer(
-                            height: height * 0.4,
-                            duration: Duration(milliseconds: 500),
-                            width: height * 0.4,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: (widget.listSongInfo[controller.faixa]
-                                              ?.albumArtwork !=
-                                          null)
-                                      ? FileImage(
-                                          File(widget
-                                              .listSongInfo[controller.faixa]
-                                              ?.albumArtwork),
-                                        )
-                                      : AssetImage(
-                                          'assets/note.png',
-                                        ),
-                                  fit: BoxFit.fill,
-                                  alignment: Alignment.center),
-                              color: Colors.blue,
-                              shape: BoxShape.circle,
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            WavesWidget(
+                              timeMusic: controller.progressBar,
                             ),
-                          ),
+                            Container(
+                              height: height * 0.4,
+                              width: height * 0.4,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    image: (widget
+                                                .listSongInfo[controller.faixa]
+                                                ?.albumArtwork !=
+                                            null)
+                                        ? FileImage(
+                                            File(widget
+                                                .listSongInfo[controller.faixa]
+                                                ?.albumArtwork),
+                                          )
+                                        : AssetImage(
+                                            'assets/note.png',
+                                          ),
+                                    fit: BoxFit.fill,
+                                    alignment: Alignment.center),
+                                color: Colors.blue,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       Padding(

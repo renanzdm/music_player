@@ -1,3 +1,4 @@
+import 'package:musicplayer/app/shared/widgets/waves/waves_controller.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:musicplayer/app/app_controller.dart';
@@ -16,6 +17,7 @@ import 'package:musicplayer/app/shared/widgets/playlist/playlist_controller.dart
 class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
+        Bind((i) => WavesController()),
         Bind((i) => AppController(i.get<AudioPlayer>())),
         Bind((i) => ButtonPlayerController()),
         Bind((i) => BottomAppBarController()),
