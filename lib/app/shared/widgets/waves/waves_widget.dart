@@ -35,7 +35,7 @@ class WavesPainter extends CustomPainter {
       );
 
       canvas.drawRect(
-        Rect.fromLTRB(0.00, -radius, 2.00, -radius - (wave.height * 25)),
+        Rect.fromLTRB(0.00, -radius, 2.00, -radius - (wave.height * 30)),
         paint,
       );
       canvas.rotate(2 * (3.14) / chart.wave.length);

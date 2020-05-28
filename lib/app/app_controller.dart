@@ -1,7 +1,8 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
-import 'package:musicplayer/app/shared/model/SongModel.dart';
+
+import 'shared/model/song_model.dart';
 
 part 'app_controller.g.dart';
 

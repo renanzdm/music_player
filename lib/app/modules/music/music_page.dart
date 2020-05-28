@@ -17,7 +17,11 @@ class _MusicPageState extends ModularState<MusicPage, MusicController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        children: <Widget>[],
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(),
+          ),
+        ],
       ),
     );
   }

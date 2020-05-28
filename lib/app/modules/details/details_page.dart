@@ -84,8 +84,6 @@ class _DetailsPageState extends ModularState<DetailsPage, DetailsController> {
                         itemBuilder: (context, index) => Hero(
                           tag: list[index].id,
                           child: Card(
-                            elevation: 5,
-                            color: Theme.of(context).disabledColor,
                             child: ListTile(
                               onTap: () async {
                                 await controller

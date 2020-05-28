@@ -17,10 +17,5 @@ abstract class _AlbumControllerBase with Store {
   @action
   getAlbumData() async {
     listAlbuns = await _audioQuery.getAlbums();
-    // listAlbuns.forEach((element) {
-    //   print(element.title);
-    //   print(element.albumArt);
-
-    // });
   }
 }

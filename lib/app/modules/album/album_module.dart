@@ -8,8 +8,7 @@ import '../../app_module.dart';
 
 class AlbumModule extends WidgetModule {
   @override
-  List<Bind> get binds =>
-      [Bind((i) => AlbumController(AppModule.to.get<FlutterAudioQuery>()))];
+  List<Bind> get binds => [];
 
   @override
   List<Router> get routers => [

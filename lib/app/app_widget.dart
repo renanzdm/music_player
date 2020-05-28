@@ -11,10 +11,11 @@ class AppWidget extends StatelessWidget {
       navigatorKey: Modular.navigatorKey,
       title: 'Flutter Slidy',
       theme: ThemeData(
-          backgroundColor: Color(0xFF52349B),
+          backgroundColor: Color(0xFF1c0436),
           textSelectionColor: Colors.white,
           accentColor: Colors.pink,
-          disabledColor: Colors.white24),
+          disabledColor: Colors.white24,
+          cardColor: Colors.white10),
       initialRoute: '/',
       onGenerateRoute: Modular.generateRoute,
     );

@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:math';
-
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -10,7 +9,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:musicplayer/app/app_controller.dart';
 import 'package:musicplayer/app/app_module.dart';
-import 'package:musicplayer/app/shared/model/SongModel.dart';
+import 'package:musicplayer/app/shared/model/song_model.dart';
 import 'package:musicplayer/app/shared/model/waves_model.dart';
 import 'package:musicplayer/app/shared/widgets/app_bar/app_bar_widget.dart';
 import 'package:musicplayer/app/shared/widgets/button_player/button_player_widget.dart';
@@ -33,7 +32,7 @@ class _ReproductionPageState
     with SingleTickerProviderStateMixin {
   AppController _appController = AppModule.to.get();
   SongModel songModel;
-  static const size = const Size(100.0, 5.0);
+  static const size = const Size(200.0, 5.0);
   final random = new Random();
   AnimationController animation;
 
@@ -44,7 +43,7 @@ class _ReproductionPageState
     controller.timeToMusic = _appController.timeToMusic;
     controller.audioDuration = _appController.audioDuration;
     animation = new AnimationController(
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 700),
       vsync: this,
     );
     controller.tween = new VibesTween(
@@ -81,7 +80,6 @@ class _ReproductionPageState
 
   @override
   Widget build(BuildContext context) {
-    print('buildou');
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
@@ -116,7 +114,7 @@ class _ReproductionPageState
                               return Container(
                                 width: 340.00,
                                 height: 340.00,
-                                padding: const EdgeInsets.all(60.0),
+                                padding: const EdgeInsets.all(65.0),
                                 child: CustomPaint(
                                   size: size,
                                   painter: WavesPainter(
@@ -128,24 +126,26 @@ class _ReproductionPageState
                               height: height * 0.35,
                               width: height * 0.35,
                               decoration: BoxDecoration(
-                                image: DecorationImage(
-                                    image: (widget
-                                                .listSongInfo[controller.faixa]
-                                                ?.albumArtwork !=
-                                            null)
-                                        ? FileImage(
-                                            File(widget
-                                                .listSongInfo[controller.faixa]
-                                                ?.albumArtwork),
-                                          )
-                                        : AssetImage(
-                                            'assets/note.png',
-                                          ),
-                                    fit: BoxFit.fill,
-                                    alignment: Alignment.center),
-                                color: Colors.blue,
-                                shape: BoxShape.circle,
-                              ),
+                                  image: DecorationImage(
+                                      image:
+                                          (widget.listSongInfo[controller.faixa]
+                                                      ?.albumArtwork !=
+                                                  null)
+                                              ? FileImage(
+                                                  File(widget
+                                                      .listSongInfo[
+                                                          controller.faixa]
+                                                      ?.albumArtwork),
+                                                )
+                                              : AssetImage(
+                                                  'assets/note.png',
+                                                ),
+                                      fit: BoxFit.fill,
+                                      alignment: Alignment.center),
+                                  color: Colors.blue,
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                      color: Colors.brown, width: 5)),
                             ),
                           ],
                         ),

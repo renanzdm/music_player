@@ -27,10 +27,19 @@ class Wave {
   }
 
   factory Wave.random(Size size, Random random) {
-    final waveLenght = 150;
-    
+    final waveLenght = 250;
 
-    final color = Colors.primaries[Random().nextInt(17)];
+    //final color = Colors.primaries[Random().nextInt(17)];
+    final paletaOfColors = [
+      Colors.purple,
+      Colors.yellow,
+      Colors.blue,
+      Colors.teal,
+      Colors.amber,
+      Colors.lightGreen,
+      Colors.cyan.shade900,
+    ];
+    final color = paletaOfColors[Random().nextInt(6)];
     final bars = new List.generate(
       waveLenght,
       (i) => new Vibes(
