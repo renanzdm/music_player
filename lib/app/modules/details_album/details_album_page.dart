@@ -7,24 +7,22 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:musicplayer/app/shared/widgets/app_bar/app_bar_widget.dart';
 
-import '../../app_controller.dart';
-import '../../app_module.dart';
-import 'details_controller.dart';
+import 'details_album_controller.dart';
 
-class DetailsPage extends StatefulWidget {
+class DetailsAlbumPage extends StatefulWidget {
   final String title;
   final AlbumInfo albumInfo;
 
-  const DetailsPage({Key key, this.title = "Details", this.albumInfo})
+  const DetailsAlbumPage({Key key, this.title = "Details", this.albumInfo})
       : super(key: key);
 
   @override
-  _DetailsPageState createState() => _DetailsPageState();
+  _DetailsAlbumPageState createState() => _DetailsAlbumPageState();
 }
 
-class _DetailsPageState extends ModularState<DetailsPage, DetailsController> {
+class _DetailsAlbumPageState
+    extends ModularState<DetailsAlbumPage, DetailsAlbumController> {
   //use 'controller' variable to access controller
-  AppController _appController = AppModule.to.get();
 
   @override
   void initState() {

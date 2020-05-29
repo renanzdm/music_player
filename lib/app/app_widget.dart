@@ -15,8 +15,8 @@ class AppWidget extends StatelessWidget {
           textSelectionColor: Colors.white,
           accentColor: Colors.pink,
           disabledColor: Colors.white24,
-          cardColor: Colors.white10),
-      initialRoute: '/',
+          cardColor: Colors.white24),
+      initialRoute: Modular.initialRoute,
       onGenerateRoute: Modular.generateRoute,
     );
   }

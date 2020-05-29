@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'card_types_controller.dart';
+part of 'card_album_controller.dart';
 
 // **************************************************************************
 // StoreGenerator
@@ -8,7 +8,7 @@ part of 'card_types_controller.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
-mixin _$CardTypesController on _CardTypesControllerBase, Store {
+mixin _$CardAlbumController on _CardAlbumControllerBase, Store {
   @override
   String toString() {
     return '''

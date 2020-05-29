@@ -2,15 +2,16 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:mobx/mobx.dart';
 
-part 'details_controller.g.dart';
+part 'details_album_controller.g.dart';
 
-class DetailsController = _DetailsControllerBase with _$DetailsController;
+class DetailsAlbumController = _DetailsAlbumControllerBase
+    with _$DetailsAlbumController;
 
-abstract class _DetailsControllerBase with Store {
+abstract class _DetailsAlbumControllerBase with Store {
   final FlutterAudioQuery _audioQuery;
   final AudioPlayer audioPlayer;
 
-  _DetailsControllerBase(this._audioQuery, this.audioPlayer);
+  _DetailsAlbumControllerBase(this._audioQuery, this.audioPlayer);
 
   @observable
   List<SongInfo> songs;

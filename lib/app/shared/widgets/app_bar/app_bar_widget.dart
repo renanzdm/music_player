@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final double height;
@@ -6,6 +7,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final IconData iconLeft;
   final Function onTapRigth;
   final Function onTapLeft;
+  final String title;
 
   const AppBarWidget(
       {Key key,
@@ -13,7 +15,8 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       this.iconRigth,
       this.iconLeft,
       this.onTapRigth,
-      this.onTapLeft})
+      this.onTapLeft,
+      this.title = ''})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -32,6 +35,13 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
                 iconLeft,
                 color: Theme.of(context).textSelectionColor,
               ),
+            ),
+          ),
+          Text(
+            title,
+            style: GoogleFonts.roboto(
+              fontSize: 24,
+              color: Theme.of(context).textSelectionColor,
             ),
           ),
           GestureDetector(

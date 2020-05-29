@@ -5,11 +5,11 @@ import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CardTypesWidget extends StatelessWidget {
+class CardAlbumWidget extends StatelessWidget {
   final double width;
   final AlbumInfo albumInfo;
 
-  const CardTypesWidget({Key key, this.width, this.albumInfo})
+  const CardAlbumWidget({Key key, this.width, this.albumInfo})
       : super(key: key);
 
   @override
@@ -51,7 +51,7 @@ class CardTypesWidget extends StatelessWidget {
             width: width,
             height: 40,
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.4),
+              color: Colors.black.withOpacity(0.8),
               borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(16),
                   bottomRight: Radius.circular(16)),
