@@ -60,3 +60,69 @@ class ClipBottomAppBar extends CustomClipper<Path> {
     return oldClipper != this;
   }
 }
+
+// return Observer(builder: (_) {
+//       return GestureDetector(
+//         onTap: _appController.getFaixa != null
+//             ? () {
+//                 Modular.to.pushNamed('/reproduction/${_appController.getFaixa}',
+//                     arguments: _appController.songModel.listSongPlayer);
+//               }
+//             : null,
+//         child: Container(
+//           height: 50,
+//           margin: EdgeInsets.only(left: 8, right: 8, bottom: 10),
+//           padding: EdgeInsets.all(4),
+//           decoration: BoxDecoration(
+//             borderRadius: BorderRadius.circular(14),
+//             color: Theme.of(context).disabledColor,
+//           ),
+//           child: Row(
+//             children: <Widget>[
+//               Expanded(
+//                 child: Padding(
+//                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
+//                   child: Text.rich(
+//                     TextSpan(
+//                       text: _appController.songModel.indexFaixa != null
+//                           ? _appController
+//                               .songModel
+//                               .listSongPlayer[_appController.getFaixa]
+//                               .displayName
+//                           : 'Nada Reproduzindo',
+//                       style: GoogleFonts.roboto(
+//                           color: Theme.of(context).textSelectionColor,
+//                           fontWeight: FontWeight.w200,
+//                           fontSize: 14),
+//                       children: [
+//                         TextSpan(
+//                           text:
+//                               '\n${_appController.songModel.indexFaixa != null ? _appController.songModel.listSongPlayer[_appController.getFaixa].artist : ''}',
+//                           style: GoogleFonts.roboto(
+//                               color: Theme.of(context).textSelectionColor,
+//                               fontWeight: FontWeight.w100,
+//                               fontSize: 12),
+//                         ),
+//                       ],
+//                     ),
+//                     maxLines: 2,
+//                   ),
+//                 ),
+//               ),
+//               ButtonPlayerWidget(
+//                 sizeButton: 40,
+//                 onTap: () {
+//                   _appController.actionSong(
+//                       _appController.songModel
+//                           .listSongPlayer[_appController.getFaixa].filePath,
+//                       _appController.playerState);
+//                 },
+//                 icon: _appController.playerState == AudioPlayerState.PLAYING
+//                     ? Icons.pause
+//                     : Icons.play_arrow,
+//               ),
+//             ],
+//           ),
+//         ),
+//       );
+//     });
