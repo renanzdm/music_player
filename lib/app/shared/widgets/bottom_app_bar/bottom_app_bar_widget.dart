@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -9,6 +11,9 @@ import 'package:musicplayer/app/shared/widgets/button_player/button_player_widge
 import '../../../app_controller.dart';
 
 class BottomAppBarWidget extends StatelessWidget {
+  final double width;
+
+  const BottomAppBarWidget({Key key, this.width}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     AppController _appController = AppModule.to.get();
@@ -21,13 +26,91 @@ class BottomAppBarWidget extends StatelessWidget {
                     arguments: _appController.songModel.listSongPlayer);
               }
             : null,
-        child: ClipPath(
-          clipper: ClipBottomAppBar(),
-          child: Container(
-            color: Theme.of(context).disabledColor,
-            height: 100,
-            margin: EdgeInsets.all(10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              margin: EdgeInsets.zero,
+              height: 65,
+              width: 65,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.pink,
+                image: DecorationImage(
+                    image: (_appController.songModel.listSongPlayer != null)
+                        ? FileImage(File(_appController
+                            .songModel
+                            .listSongPlayer[_appController.songModel.indexFaixa]
+                            .albumArtwork))
+                        : AssetImage(
+                            'assets/note.png',
+                          ),
+                    fit: BoxFit.fill,
+                    alignment: Alignment.center),
+              ),
+            ),
+            ClipPath(
+              clipper: ClipBottomAppBar(),
+              child: Container(
+                margin: EdgeInsets.zero,
+                height: 50,
+                width: width,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).disabledColor,
+                  borderRadius: BorderRadius.only(
+                    bottomRight: Radius.circular(32),
+                    topRight: Radius.circular(32),
+                  ),
+                ),
+                child: Row(
+            children: <Widget>[
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: Text.rich(
+                    TextSpan(
+                      text: _appController.songModel.indexFaixa != null
+                          ? _appController
+                              .songModel
+                              .listSongPlayer[_appController.getFaixa]
+                              .displayName
+                          : 'Nada Reproduzindo',
+                      style: GoogleFonts.roboto(
+                          color: Theme.of(context).textSelectionColor,
+                          fontWeight: FontWeight.w200,
+                          fontSize: 14),
+                      children: [
+                        TextSpan(
+                          text:
+                              '\n${_appController.songModel.indexFaixa != null ? _appController.songModel.listSongPlayer[_appController.getFaixa].artist : ''}',
+                          style: GoogleFonts.roboto(
+                              color: Theme.of(context).textSelectionColor,
+                              fontWeight: FontWeight.w100,
+                              fontSize: 12),
+                        ),
+                      ],
+                    ),
+                    maxLines: 2,
+                  ),
+                ),
+              ),
+              ButtonPlayerWidget(
+                sizeButton: 40,
+                onTap: () {
+                  _appController.actionSong(
+                      _appController.songModel
+                          .listSongPlayer[_appController.getFaixa].filePath,
+                      _appController.playerState);
+                },
+                icon: _appController.playerState == AudioPlayerState.PLAYING
+                    ? Icons.pause
+                    : Icons.play_arrow,
+              ),
+            ],
           ),
+              ),
+            ),
+          ],
         ),
       );
     });
@@ -39,19 +122,15 @@ class ClipBottomAppBar extends CustomClipper<Path> {
   Path getClip(Size size) {
     var path = Path();
 
-    path.lineTo(0.0, size.height);
     path.lineTo(size.width, 0);
     path.lineTo(size.width, size.height);
+    path.lineTo(0, size.height);
 
-    var controlPoint = Offset(
-        ((size.width / 2) / 2),
-        ((size.height / 2) /
-            2)); //X = ((size.width/2)/2) e Y = ((size.heigth/2)/2) ponto de controle
-    var endPoint =
-        Offset(size.width, 0); //pontos da reta x= valor máximo e y = 0
+    var pointControl = Offset(size.width * 0.06, size.height / 2);
+    var endPoint = Offset(0, 0);
     path.quadraticBezierTo(
-        controlPoint.dx, controlPoint.dy, endPoint.dx, endPoint.dy);
-    path.close();
+        pointControl.dx, pointControl.dy, endPoint.dx, endPoint.dy);
+
     return path;
   }
 

@@ -16,6 +16,7 @@ class ButtonPlayerWidget extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 10),
         height: sizeButton,
         width: sizeButton,
         child: Icon(

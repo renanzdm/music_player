@@ -1,15 +1,15 @@
 import 'package:flutter_modular/flutter_modular_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:musicplayer/app/modules/artist/artist_controller.dart';
-import 'package:musicplayer/app/modules/artist/artist_module.dart';
+import 'package:musicplayer/app/shared/widgets/artist/artist_controller.dart';
+import 'package:musicplayer/app/app_module.dart';
 
 void main() {
-  initModule(ArtistModule());
+  initModule(AppModule());
   // ArtistController artist;
   //
   setUp(() {
-    //     artist = ArtistModule.to.get<ArtistController>();
+    //     artist = AppModule.to.get<ArtistController>();
   });
 
   group('ArtistController Test', () {

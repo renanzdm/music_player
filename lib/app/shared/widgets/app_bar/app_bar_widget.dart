@@ -41,6 +41,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
             title,
             style: GoogleFonts.roboto(
               fontSize: 24,
+              fontWeight: FontWeight.w300,
               color: Theme.of(context).textSelectionColor,
             ),
           ),

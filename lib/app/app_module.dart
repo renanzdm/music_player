@@ -1,3 +1,5 @@
+import 'package:musicplayer/app/shared/repositories/audio_repository.dart';
+import 'package:musicplayer/app/shared/widgets/artist/artist_controller.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
@@ -12,6 +14,8 @@ import 'modules/details_album/details_album_module.dart';
 class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
+        Bind((i) => ArtistController()),
+        Bind((i) => AudioRepository(i.get<FlutterAudioQuery>())),
         Bind((i) => AppController(i.get<AudioPlayer>())),
         Bind((i) => FlutterAudioQuery()),
         Bind((i) => AudioPlayer(playerId: 'My_player')),

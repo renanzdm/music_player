@@ -7,10 +7,7 @@ class AlbumController = _AlbumControllerBase with _$AlbumController;
 
 abstract class _AlbumControllerBase with Store {
   final FlutterAudioQuery _audioQuery;
-  @observable
-  int currentPage = 0;
-  @action
-  setPage(int value) => currentPage = value;
+ 
 
   _AlbumControllerBase(this._audioQuery) {
     getAlbumData();

@@ -20,6 +20,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBarWidget(
@@ -29,26 +30,41 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
         iconRigth: Icons.more_vert,
         title: 'Biblioteca',
       ),
-      bottomNavigationBar: BottomAppBarWidget(),
+      bottomNavigationBar: BottomAppBarWidget(
+        width: MediaQuery.of(context).size.width * 0.8,
+      ),
       body: LayoutBuilder(
         builder: (_, constraints) {
           return ListView(
             padding: EdgeInsets.symmetric(vertical: 8),
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 18),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Text(
                   'Albuns',
                   style: GoogleFonts.roboto(
                       color: Theme.of(context).textSelectionColor,
                       fontWeight: FontWeight.w300,
-                      fontSize: 16,
-                      letterSpacing: 4),
+                      fontSize: 20,
+                      ),
                 ),
               ),
               AlbumWidget(
-                height: constraints.maxHeight * 0.40,
+                height: constraints.maxHeight * 0.35,
               ),
+               Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  'Artistas',
+                  style: GoogleFonts.roboto(
+                      color: Theme.of(context).textSelectionColor,
+                      fontWeight: FontWeight.w300,
+                      fontSize: 20,
+                      ),
+                ),
+              ),
+             
+              
             ],
           );
         },
