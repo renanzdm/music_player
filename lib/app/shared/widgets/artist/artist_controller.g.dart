@@ -9,39 +9,33 @@ part of 'artist_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$ArtistController on _ArtistControllerBase, Store {
-  final _$valueAtom = Atom(name: '_ArtistControllerBase.value');
+  final _$listArtistsAtom = Atom(name: '_ArtistControllerBase.listArtists');
 
   @override
-  int get value {
-    _$valueAtom.reportRead();
-    return super.value;
+  List<ArtistInfo> get listArtists {
+    _$listArtistsAtom.reportRead();
+    return super.listArtists;
   }
 
   @override
-  set value(int value) {
-    _$valueAtom.reportWrite(value, super.value, () {
-      super.value = value;
+  set listArtists(List<ArtistInfo> value) {
+    _$listArtistsAtom.reportWrite(value, super.listArtists, () {
+      super.listArtists = value;
     });
   }
 
-  final _$_ArtistControllerBaseActionController =
-      ActionController(name: '_ArtistControllerBase');
+  final _$getArtistDataAsyncAction =
+      AsyncAction('_ArtistControllerBase.getArtistData');
 
   @override
-  void increment() {
-    final _$actionInfo = _$_ArtistControllerBaseActionController.startAction(
-        name: '_ArtistControllerBase.increment');
-    try {
-      return super.increment();
-    } finally {
-      _$_ArtistControllerBaseActionController.endAction(_$actionInfo);
-    }
+  Future getArtistData() {
+    return _$getArtistDataAsyncAction.run(() => super.getArtistData());
   }
 
   @override
   String toString() {
     return '''
-value: ${value}
+listArtists: ${listArtists}
     ''';
   }
 }

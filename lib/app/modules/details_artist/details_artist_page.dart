@@ -6,28 +6,26 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:musicplayer/app/shared/widgets/app_bar/app_bar_widget.dart';
+import 'details_artist_controller.dart';
 
-import 'details_album_controller.dart';
-
-class DetailsAlbumPage extends StatefulWidget {
+class DetailsArtistPage extends StatefulWidget {
   final String title;
-  final AlbumInfo albumInfo;
-
-  const DetailsAlbumPage({Key key, this.title = "Details", this.albumInfo})
+  final ArtistInfo artistsInfo;
+  const DetailsArtistPage(
+      {Key key, this.title = "DetailsArtist", this.artistsInfo})
       : super(key: key);
 
   @override
-  _DetailsAlbumPageState createState() => _DetailsAlbumPageState();
+  _DetailsArtistPageState createState() => _DetailsArtistPageState();
 }
 
-class _DetailsAlbumPageState
-    extends ModularState<DetailsAlbumPage, DetailsAlbumController> {
+class _DetailsArtistPageState
+    extends ModularState<DetailsArtistPage, DetailsArtistController> {
   //use 'controller' variable to access controller
-
   @override
   void initState() {
+    controller.getSongs(widget.artistsInfo.name);
     super.initState();
-    controller.getSongs(widget.albumInfo.id);
   }
 
   @override
@@ -51,19 +49,20 @@ class _DetailsAlbumPageState
               Container(
                 height: height * 0.35,
                 child: Hero(
-                  tag: widget.albumInfo.id,
+                  tag: widget.artistsInfo.id,
                   child: Container(
                     margin: EdgeInsets.symmetric(vertical: 12),
                     decoration: BoxDecoration(
+                        shape: BoxShape.circle,
                         image: DecorationImage(
-                            image: (widget.albumInfo.albumArt != null)
-                                ? FileImage(File(widget.albumInfo.albumArt))
+                            image: (widget.artistsInfo.artistArtPath != null)
+                                ? FileImage(
+                                    File(widget.artistsInfo.artistArtPath))
                                 : AssetImage(
                                     'assets/note.png',
                                   ),
                             fit: BoxFit.fill,
                             alignment: Alignment.center),
-                        borderRadius: BorderRadius.circular(20),
                         color: Colors.indigoAccent),
                     height: height * 0.2,
                     width: width * 0.9,
@@ -115,10 +114,11 @@ class _DetailsAlbumPageState
                               ),
                               leading: CircleAvatar(
                                   backgroundImage:
-                                      widget.albumInfo.albumArt != null
+                                      widget.artistsInfo.artistArtPath != null
                                           ? FileImage(
                                               File(
-                                                widget.albumInfo.albumArt,
+                                                widget
+                                                    .artistsInfo.artistArtPath,
                                               ),
                                               scale: 1)
                                           : AssetImage(

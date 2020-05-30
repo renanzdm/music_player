@@ -13,7 +13,7 @@ class AlbumWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final AlbumController _albumController = HomeModule.to.get();
     return Container(
-      height: height+50,
+      height: height + 100,
       child: Observer(
         builder: (_) {
           List<AlbumInfo> list = _albumController.listAlbuns;

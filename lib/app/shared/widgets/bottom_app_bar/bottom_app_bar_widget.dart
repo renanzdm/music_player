@@ -19,100 +19,113 @@ class BottomAppBarWidget extends StatelessWidget {
     AppController _appController = AppModule.to.get();
 
     return Observer(builder: (_) {
-      return GestureDetector(
-        onTap: _appController.getFaixa != null
-            ? () {
-                Modular.to.pushNamed('/reproduction/${_appController.getFaixa}',
-                    arguments: _appController.songModel.listSongPlayer);
-              }
-            : null,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.zero,
-              height: 65,
-              width: 65,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.pink,
-                image: DecorationImage(
-                    image: (_appController.songModel.listSongPlayer != null)
-                        ? FileImage(File(_appController
-                            .songModel
-                            .listSongPlayer[_appController.songModel.indexFaixa]
-                            .albumArtwork))
-                        : AssetImage(
-                            'assets/note.png',
-                          ),
-                    fit: BoxFit.fill,
-                    alignment: Alignment.center),
-              ),
-            ),
-            ClipPath(
-              clipper: ClipBottomAppBar(),
-              child: Container(
-                margin: EdgeInsets.zero,
-                height: 50,
-                width: width,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).disabledColor,
-                  borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(32),
-                    topRight: Radius.circular(32),
-                  ),
-                ),
-                child: Row(
-            children: <Widget>[
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Text.rich(
-                    TextSpan(
-                      text: _appController.songModel.indexFaixa != null
-                          ? _appController
-                              .songModel
-                              .listSongPlayer[_appController.getFaixa]
-                              .displayName
-                          : 'Nada Reproduzindo',
-                      style: GoogleFonts.roboto(
-                          color: Theme.of(context).textSelectionColor,
-                          fontWeight: FontWeight.w200,
-                          fontSize: 14),
-                      children: [
-                        TextSpan(
-                          text:
-                              '\n${_appController.songModel.indexFaixa != null ? _appController.songModel.listSongPlayer[_appController.getFaixa].artist : ''}',
-                          style: GoogleFonts.roboto(
-                              color: Theme.of(context).textSelectionColor,
-                              fontWeight: FontWeight.w100,
-                              fontSize: 12),
+      return _appController.songModel.indexFaixa != null
+          ? GestureDetector(
+              onTap: _appController.getFaixa != null
+                  ? () {
+                      Modular.to.pushNamed(
+                          '/reproduction/${_appController.getFaixa}',
+                          arguments: _appController.songModel.listSongPlayer);
+                    }
+                  : null,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Transform.rotate(
+                    angle: _appController.timeToMusic.inSeconds.toDouble() / 10,
+                    child: Container(
+                      height: 65,
+                      width: 65,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.pink,
+                        image: DecorationImage(
+                          image: (_appController
+                                      .songModel
+                                      .listSongPlayer[_appController.getFaixa]
+                                      .albumArtwork !=
+                                  null)
+                              ? FileImage(File(_appController
+                                  .songModel
+                                  .listSongPlayer[_appController.getFaixa]
+                                  .albumArtwork))
+                              : AssetImage(
+                                  'assets/disc.png',
+                                ),
+                          fit: BoxFit.cover,
                         ),
-                      ],
+                      ),
                     ),
-                    maxLines: 2,
                   ),
-                ),
+                  ClipPath(
+                    clipper: ClipBottomAppBar(),
+                    child: Container(
+                      margin: EdgeInsets.zero,
+                      height: 50,
+                      width: width,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).disabledColor,
+                        borderRadius: BorderRadius.only(
+                          bottomRight: Radius.circular(32),
+                          topRight: Radius.circular(32),
+                        ),
+                      ),
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10.0),
+                              child: Text.rich(
+                                TextSpan(
+                                  text: _appController
+                                      .songModel
+                                      .listSongPlayer[_appController.getFaixa]
+                                      .displayName,
+                                  style: GoogleFonts.roboto(
+                                      color:
+                                          Theme.of(context).textSelectionColor,
+                                      fontWeight: FontWeight.w200,
+                                      fontSize: 14),
+                                  children: [
+                                    TextSpan(
+                                      text:
+                                          '\n${_appController.songModel.listSongPlayer[_appController.getFaixa].artist}',
+                                      style: GoogleFonts.roboto(
+                                          color: Theme.of(context)
+                                              .textSelectionColor,
+                                          fontWeight: FontWeight.w100,
+                                          fontSize: 12),
+                                    ),
+                                  ],
+                                ),
+                                maxLines: 2,
+                              ),
+                            ),
+                          ),
+                          ButtonPlayerWidget(
+                            sizeButton: 40,
+                            onTap: () {
+                              _appController.actionSong(
+                                  _appController
+                                      .songModel
+                                      .listSongPlayer[_appController.getFaixa]
+                                      .filePath,
+                                  _appController.playerState);
+                            },
+                            icon: _appController.playerState ==
+                                    AudioPlayerState.PLAYING
+                                ? Icons.pause
+                                : Icons.play_arrow,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              ButtonPlayerWidget(
-                sizeButton: 40,
-                onTap: () {
-                  _appController.actionSong(
-                      _appController.songModel
-                          .listSongPlayer[_appController.getFaixa].filePath,
-                      _appController.playerState);
-                },
-                icon: _appController.playerState == AudioPlayerState.PLAYING
-                    ? Icons.pause
-                    : Icons.play_arrow,
-              ),
-            ],
-          ),
-              ),
-            ),
-          ],
-        ),
-      );
+            )
+          : Container();
     });
   }
 }

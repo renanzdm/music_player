@@ -3,6 +3,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:musicplayer/app/shared/widgets/album/album_widget.dart';
 import 'package:musicplayer/app/shared/widgets/app_bar/app_bar_widget.dart';
+import 'package:musicplayer/app/shared/widgets/artist/artist_widget.dart';
 import 'package:musicplayer/app/shared/widgets/bottom_app_bar/bottom_app_bar_widget.dart';
 
 import 'home_controller.dart';
@@ -20,51 +21,58 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBarWidget(
         onTapRigth: () {},
         height: 50,
-        iconLeft: Icons.search,
         iconRigth: Icons.more_vert,
         title: 'Biblioteca',
       ),
       bottomNavigationBar: BottomAppBarWidget(
         width: MediaQuery.of(context).size.width * 0.8,
       ),
+      floatingActionButton: FloatingActionButton.extended(
+          onPressed: null, label: Text('Músicas')),
       body: LayoutBuilder(
         builder: (_, constraints) {
-          return ListView(
-            padding: EdgeInsets.symmetric(vertical: 8),
+          return Column(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  'Albuns',
-                  style: GoogleFonts.roboto(
-                      color: Theme.of(context).textSelectionColor,
-                      fontWeight: FontWeight.w300,
-                      fontSize: 20,
+              Expanded(
+                child: ListView(
+                  padding: EdgeInsets.symmetric(vertical: 8),
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Text(
+                        'Albuns',
+                        style: GoogleFonts.roboto(
+                          color: Theme.of(context).textSelectionColor,
+                          fontWeight: FontWeight.w300,
+                          fontSize: 20,
+                        ),
                       ),
+                    ),
+                    AlbumWidget(
+                      height: constraints.maxHeight * 0.30,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Text(
+                        'Artistas',
+                        style: GoogleFonts.roboto(
+                          color: Theme.of(context).textSelectionColor,
+                          fontWeight: FontWeight.w300,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                    ArtistWidget(
+                      height: constraints.maxHeight * 0.25,
+                    ),
+                  ],
                 ),
               ),
-              AlbumWidget(
-                height: constraints.maxHeight * 0.35,
-              ),
-               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  'Artistas',
-                  style: GoogleFonts.roboto(
-                      color: Theme.of(context).textSelectionColor,
-                      fontWeight: FontWeight.w300,
-                      fontSize: 20,
-                      ),
-                ),
-              ),
-             
-              
             ],
           );
         },

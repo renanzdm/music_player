@@ -1,0 +1,4 @@
+lib/app/shared/widgets/card_artist/card_artist_widget.dart
+test/app/shared/widgets/card_artist/card_artist_widget_test.dart
+lib/app/shared/widgets/card_artist/card_artist_controller.dart
+test/app/shared/widgets/card_artist/card_artist_controller_test.dart
