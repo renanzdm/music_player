@@ -1,0 +1,4 @@
+lib/app/shared/widgets/app_bar/app_bar_widget.dart
+test/app/shared/widgets/app_bar/app_bar_widget_test.dart
+lib/app/shared/widgets/app_bar/app_bar_controller.dart
+test/app/shared/widgets/app_bar/app_bar_controller_test.dart

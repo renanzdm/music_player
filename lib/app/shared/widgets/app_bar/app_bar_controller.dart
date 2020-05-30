@@ -6,10 +6,10 @@ class AppBarController = _AppBarControllerBase with _$AppBarController;
 
 abstract class _AppBarControllerBase with Store {
   @observable
-  int value = 0;
+  int currentIndex = 0;
 
   @action
-  void increment() {
-    value++;
+  getPage(int page) {
+    currentIndex = page;
   }
 }

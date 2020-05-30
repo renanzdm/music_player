@@ -1,0 +1,5 @@
+lib/app/module/albuns/albuns_module.dart
+lib/app/module/albuns/albuns_page.dart
+test/app/module/albuns/albuns_page_test.dart
+lib/app/module/albuns/albuns_controller.dart
+test/app/module/albuns/albuns_controller_test.dart

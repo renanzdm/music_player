@@ -1,0 +1,5 @@
+lib/app/modules/artists/artists_module.dart
+lib/app/modules/artists/artists_page.dart
+test/app/modules/artists/artists_page_test.dart
+lib/app/modules/artists/artists_controller.dart
+test/app/modules/artists/artists_controller_test.dart

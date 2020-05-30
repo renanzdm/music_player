@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:musicplayer/app/shared/widgets/app_bar/app_bar_controller.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final double height;
@@ -18,8 +19,10 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       this.onTapLeft,
       this.title = ''})
       : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    final appBarController = AppBarController();
     return Container(
       height: height,
       child: Row(
@@ -37,14 +40,28 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
           ),
-          Text(
-            title,
-            style: GoogleFonts.roboto(
-              fontSize: 24,
-              fontWeight: FontWeight.w300,
-              color: Theme.of(context).textSelectionColor,
-            ),
-          ),
+          Expanded(
+              child: TabBar(
+                  unselectedLabelStyle: TextStyle(
+                    fontSize: 12,
+                  ),
+                  labelStyle: TextStyle(
+                    fontSize: 20,
+                  ),
+                  labelColor: Colors.orange,
+                  unselectedLabelColor: Colors.white,
+                  indicatorColor: Colors.transparent,
+                  tabs: [
+                Tab(
+                  text: 'data',
+                ),
+                Tab(
+                  text: 'data',
+                ),
+                Tab(
+                  text: 'data',
+                ),
+              ])),
           GestureDetector(
             onTap: onTapRigth,
             child: Padding(
