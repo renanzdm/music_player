@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:musicplayer/app/shared/widgets/app_bar/app_bar_controller.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final double height;
@@ -8,7 +7,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final IconData iconLeft;
   final Function onTapRigth;
   final Function onTapLeft;
-  final String title;
+  
 
   const AppBarWidget(
       {Key key,
@@ -17,12 +16,11 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       this.iconLeft,
       this.onTapRigth,
       this.onTapLeft,
-      this.title = ''})
+      })
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final appBarController = AppBarController();
     return Container(
       height: height,
       child: Row(
@@ -32,44 +30,38 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
             behavior: HitTestBehavior.translucent,
             onTap: onTapLeft,
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
+              padding: const EdgeInsets.only(left:4.0),
               child: Icon(
                 iconLeft,
-                color: Theme.of(context).textSelectionColor,
+                color: Colors.white,
               ),
             ),
           ),
           Expanded(
               child: TabBar(
-                  unselectedLabelStyle: TextStyle(
-                    fontSize: 12,
-                  ),
-                  labelStyle: TextStyle(
-                    fontSize: 20,
-                  ),
+                  unselectedLabelStyle: GoogleFonts.bebasNeue(fontSize: 14),
+                  labelStyle:  GoogleFonts.bebasNeue(fontSize: 20),
                   labelColor: Colors.orange,
                   unselectedLabelColor: Colors.white,
                   indicatorColor: Colors.transparent,
                   tabs: [
                 Tab(
-                  text: 'data',
+                  text: 'Albuns',
                 ),
                 Tab(
-                  text: 'data',
+                  text: 'Músicas',
                 ),
                 Tab(
-                  text: 'data',
+                  text: 'Artistas',
                 ),
               ])),
           GestureDetector(
             onTap: onTapRigth,
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10),
+              padding: const EdgeInsets.only(right:4.0),
               child: Icon(
                 iconRigth,
-                color: Theme.of(context).textSelectionColor,
+                color: Colors.white
               ),
             ),
           ),

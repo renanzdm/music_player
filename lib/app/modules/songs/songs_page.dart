@@ -16,9 +16,7 @@ class _SongsPageState extends ModularState<SongsPage, SongsController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+     
       body: Column(
         children: <Widget>[],
       ),

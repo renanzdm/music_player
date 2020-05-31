@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:musicplayer/app/modules/albuns/albuns_module.dart';
+import 'package:musicplayer/app/modules/artists/artists_module.dart';
+import 'package:musicplayer/app/modules/songs/songs_module.dart';
 import 'package:musicplayer/app/shared/widgets/app_bar/app_bar_widget.dart';
 import 'home_controller.dart';
 
@@ -24,20 +27,17 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             iconLeft: Icons.search,
             iconRigth: Icons.more_vert,
             height: 50,
-            title: 'ASAS',
           ),
           body: Container(
-            child: TabBarView(children: [
-              Container(
-                color: Colors.red,
-              ),
-              Container(
-                color: Colors.red.shade200,
-              ),
-              Container(
-                color: Colors.red.shade100,
-              ),
-            ]),
+            
+            child: TabBarView(
+              physics: NeverScrollableScrollPhysics(),
+              children: [
+                RouterOutlet(module: AlbunsModule()),
+                RouterOutlet(module: SongsModule()),
+                RouterOutlet(module: ArtistsModule()),
+              ],
+            ),
           )),
     );
   }
