@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final double height;
@@ -7,17 +6,17 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final IconData iconLeft;
   final Function onTapRigth;
   final Function onTapLeft;
-  
+  final Widget tabBar;
 
-  const AppBarWidget(
-      {Key key,
-      this.height,
-      this.iconRigth,
-      this.iconLeft,
-      this.onTapRigth,
-      this.onTapLeft,
-      })
-      : super(key: key);
+  const AppBarWidget({
+    Key key,
+    this.height,
+    this.iconRigth,
+    this.iconLeft,
+    this.onTapRigth,
+    this.onTapLeft,
+    this.tabBar,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,39 +29,19 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
             behavior: HitTestBehavior.translucent,
             onTap: onTapLeft,
             child: Padding(
-              padding: const EdgeInsets.only(left:4.0),
+              padding: const EdgeInsets.only(left: 4.0),
               child: Icon(
                 iconLeft,
                 color: Colors.white,
               ),
             ),
           ),
-          Expanded(
-              child: TabBar(
-                  unselectedLabelStyle: GoogleFonts.bebasNeue(fontSize: 14),
-                  labelStyle:  GoogleFonts.bebasNeue(fontSize: 20),
-                  labelColor: Colors.orange,
-                  unselectedLabelColor: Colors.white,
-                  indicatorColor: Colors.transparent,
-                  tabs: [
-                Tab(
-                  text: 'Albuns',
-                ),
-                Tab(
-                  text: 'Músicas',
-                ),
-                Tab(
-                  text: 'Artistas',
-                ),
-              ])),
+          tabBar,
           GestureDetector(
             onTap: onTapRigth,
             child: Padding(
-              padding: const EdgeInsets.only(right:4.0),
-              child: Icon(
-                iconRigth,
-                color: Colors.white
-              ),
+              padding: const EdgeInsets.only(right: 4.0),
+              child: Icon(iconRigth, color: Colors.white),
             ),
           ),
         ],

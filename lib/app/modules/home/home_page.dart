@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:musicplayer/app/modules/albuns/albuns_module.dart';
 import 'package:musicplayer/app/modules/artists/artists_module.dart';
 import 'package:musicplayer/app/modules/songs/songs_module.dart';
@@ -27,9 +28,26 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             iconLeft: Icons.search,
             iconRigth: Icons.more_vert,
             height: 50,
+            tabBar: Expanded(
+                child: TabBar(
+                    unselectedLabelStyle: GoogleFonts.bebasNeue(fontSize: 14),
+                    labelStyle: GoogleFonts.bebasNeue(fontSize: 20),
+                    labelColor: Colors.orange,
+                    unselectedLabelColor: Colors.white,
+                    indicatorColor: Colors.transparent,
+                    tabs: [
+                  Tab(
+                    text: 'Albuns',
+                  ),
+                  Tab(
+                    text: 'Músicas',
+                  ),
+                  Tab(
+                    text: 'Artistas',
+                  ),
+                ])),
           ),
           body: Container(
-            
             child: TabBarView(
               physics: NeverScrollableScrollPhysics(),
               children: [
