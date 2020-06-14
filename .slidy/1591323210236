@@ -1,0 +1,4 @@
+lib/app/shared/widgets/details_card/details_card_widget.dart
+test/app/shared/widgets/details_card/details_card_widget_test.dart
+lib/app/shared/widgets/details_card/details_card_controller.dart
+test/app/shared/widgets/details_card/details_card_controller_test.dart

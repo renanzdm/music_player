@@ -29,7 +29,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
             behavior: HitTestBehavior.translucent,
             onTap: onTapLeft,
             child: Padding(
-              padding: const EdgeInsets.only(left: 4.0),
+              padding: const EdgeInsets.all(8),
               child: Icon(
                 iconLeft,
                 color: Colors.white,
@@ -40,7 +40,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
           GestureDetector(
             onTap: onTapRigth,
             child: Padding(
-              padding: const EdgeInsets.only(right: 4.0),
+              padding: const EdgeInsets.all(8),
               child: Icon(iconRigth, color: Colors.white),
             ),
           ),

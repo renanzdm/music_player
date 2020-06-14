@@ -6,7 +6,7 @@ import 'package:musicplayer/app/modules/songs/songs_page.dart';
 class SongsModule extends WidgetModule {
   @override
   List<Bind> get binds => [
-        Bind((i) => SongsController()),
+        Bind((i) => SongsController(i.get(), i.get())),
       ];
 
   @override

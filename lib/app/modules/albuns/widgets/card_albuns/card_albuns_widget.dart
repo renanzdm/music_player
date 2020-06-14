@@ -18,7 +18,7 @@ class CardAlbunsWidget extends StatelessWidget {
       children: <Widget>[
         GestureDetector(
           onTap: () {
-            Modular.to.pushNamed('detailsAlbum', arguments: albumInfo);
+            Modular.to.pushNamed('/albuns/detailsAlbum', arguments: albumInfo);
           },
           child: Hero(
             tag: albumInfo.id,

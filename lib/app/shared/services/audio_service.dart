@@ -14,4 +14,9 @@ class AudioService implements IAudioService {
   Future<List<ArtistInfo>> getArtists() async {
     return await audioQuery.getArtists();
   }
+
+  @override
+  Future<List<SongInfo>> getSongs() async {
+    return await audioQuery.getSongs();
+  }
 }

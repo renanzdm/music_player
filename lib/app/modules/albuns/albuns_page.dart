@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:musicplayer/app/shared/widgets/card_albuns/card_albuns_widget.dart';
+import 'package:musicplayer/app/modules/albuns/widgets/card_albuns/card_albuns_widget.dart';
 import 'albuns_controller.dart';
 
 class AlbunsPage extends StatefulWidget {
@@ -41,9 +41,8 @@ class _AlbunsPageState extends ModularState<AlbunsPage, AlbunsController> {
                 height: constraints.maxHeight * 0.95,
                 child: Observer(
                   builder: (_) {
-                    List<AlbumInfo> list = controller.listAlbuns;
-
-                    if (list != null) {
+                    if (controller.listAlbuns != null) {
+                      List<AlbumInfo> list = controller.listAlbuns;
                       return GridView.builder(
                         itemCount: list.length,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
