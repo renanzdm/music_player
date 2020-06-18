@@ -5,7 +5,6 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/animation.dart';
 import 'package:flutter_audio_query/flutter_audio_query.dart';
 import 'package:mobx/mobx.dart';
-import 'package:musicplayer/app/shared/models/song_model.dart';
 import 'package:musicplayer/app/shared/models/waves_model.dart';
 import 'package:musicplayer/app/shared/stores/audio_store.dart';
 import 'package:musicplayer/app/shared/widgets/waves/waves_widget.dart';
@@ -16,10 +15,10 @@ class ReproductionController = _ReproductionControllerBase
     with _$ReproductionController;
 
 abstract class _ReproductionControllerBase with Store {
-  final AudioPlayer _audioPlayer;
+  final AudioPlayer audioPlayer;
   final AudioStore audioStore;
 
-  _ReproductionControllerBase(this._audioPlayer, this.audioStore);
+  _ReproductionControllerBase(this.audioPlayer, this.audioStore);
 
   @observable
   int faixa = 0;
@@ -43,7 +42,7 @@ abstract class _ReproductionControllerBase with Store {
   @action
   controllerProgressMusic(double value) {
     int progress = (value * audioStore.audioDuration.inSeconds).toInt();
-    _audioPlayer.seek(Duration(seconds: progress));
+    audioPlayer.seek(Duration(seconds: progress));
   }
 
   @computed
@@ -65,34 +64,25 @@ abstract class _ReproductionControllerBase with Store {
 
   @action
   nextSong({List<SongInfo> listSong}) async {
-    await _audioPlayer.stop();
+    await audioPlayer.stop();
     faixa++;
     if (listSong.length > faixa) {
-      await _audioPlayer.play(listSong[faixa]?.filePath);
+      await audioPlayer.play(listSong[faixa]?.filePath);
     } else {
       faixa = 0;
-      await _audioPlayer.play(listSong[faixa]?.filePath);
+      await audioPlayer.play(listSong[faixa]?.filePath);
     }
   }
 
   @action
   previousSong({List<SongInfo> listSong}) async {
-    await _audioPlayer.stop();
+    await audioPlayer.stop();
     faixa--;
     if (faixa <= 0) {
       faixa = 0;
-      await _audioPlayer.play(listSong[faixa]?.filePath);
+      await audioPlayer.play(listSong[faixa]?.filePath);
     } else {
-      await _audioPlayer.play(listSong[faixa]?.filePath);
+      await audioPlayer.play(listSong[faixa]?.filePath);
     }
-  }
-
-  onCompleted({List<SongInfo> listSong, SongModel songModel}) {
-    _audioPlayer.onPlayerStateChanged.listen((event) {
-      if (event == AudioPlayerState.COMPLETED) {
-        nextSong(listSong: listSong);
-        audioStore.getSongPlayer(songModel);
-      }
-    });
   }
 }

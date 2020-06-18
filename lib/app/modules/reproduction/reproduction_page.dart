@@ -34,13 +34,17 @@ class _ReproductionPageState
 
   @override
   void initState() {
-    controller.onCompleted(
-        listSong: widget.listSongInfo,
-        songModel: SongModel(
-            indexFaixa: controller.faixa,
-            listSongPlayer: widget.listSongInfo,
-            playerState: controller.audioStore.playerState));
     super.initState();
+    controller.audioPlayer.onPlayerCompletion.listen((event) {
+      controller.nextSong(listSong: widget.listSongInfo);
+      songModel = SongModel(
+        indexFaixa: controller.faixa,
+        listSongPlayer: widget.listSongInfo,
+        playerState: controller.audioStore.playerState,
+      );
+      controller.audioStore.getSongPlayer(songModel);
+    });
+
     controller.changeFaixa(int.parse(widget.indexFaixa));
     animation = new AnimationController(
       duration: const Duration(milliseconds: 700),
@@ -236,7 +240,6 @@ class _ReproductionPageState
                                       .listSongInfo[controller.faixa]?.filePath,
                                   controller.audioStore.playerState);
                               animation.forward();
-                              print(controller.audioStore.playerState);
                             },
                             icon: controller.audioStore.playerState ==
                                     AudioPlayerState.PLAYING

@@ -11,7 +11,6 @@ abstract class _AudioStoreBase with Store {
     getPositionToMusic();
     getPlayerState();
     getTotalDuration();
-    print(playerState);
   }
 
   @observable
