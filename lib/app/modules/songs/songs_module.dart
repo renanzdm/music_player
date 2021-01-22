@@ -10,8 +10,8 @@ class SongsModule extends WidgetModule {
       ];
 
   @override
-  List<Router> get routers => [
-        Router(Modular.initialRoute, child: (_, args) => SongsPage()),
+  List<ModularRouter> get routers => [
+    ModularRouter(Modular.initialRoute, child: (_, args) => SongsPage()),
       ];
 
   static Inject get to => Inject<SongsModule>.of();

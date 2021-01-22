@@ -30,7 +30,7 @@ class _ReproductionPageState
   SongModel songModel;
   static const size = const Size(200.0, 5.0);
   final random = new Random();
-  AnimationController animation;
+  AnimationController animationController;
 
   @override
   void initState() {
@@ -46,28 +46,26 @@ class _ReproductionPageState
     });
 
     controller.changeFaixa(int.parse(widget.indexFaixa));
-    animation = new AnimationController(
-      duration: const Duration(milliseconds: 700),
-      vsync: this,
-    );
+    animationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 700));
     controller.tween = new VibesTween(
       new Wave.empty(size),
       new Wave.random(size, random),
     );
-    animation.forward();
-    animation.addStatusListener((status) {
+    animationController.forward();
+    animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        controller.changeTween(animation, size, random);
+        controller.changeTween(animationController, size, random);
       } else if (controller.audioStore.playerState == AudioPlayerState.PAUSED ||
           controller.audioStore.playerState == AudioPlayerState.COMPLETED) {
-        animation.stop();
+        animationController.stop();
       }
     });
   }
 
   @override
   void dispose() {
-    animation.dispose();
+    animationController.dispose();
     super.dispose();
   }
 
@@ -130,8 +128,8 @@ class _ReproductionPageState
                             padding: const EdgeInsets.all(65.0),
                             child: CustomPaint(
                               size: size,
-                              painter: WavesPainter(
-                                  controller.tween.animate(animation)),
+                              painter: WavesPainter(controller.tween
+                                  .animate(animationController)),
                             ),
                           ),
                           Container(
@@ -228,7 +226,7 @@ class _ReproductionPageState
                             onTap: () {
                               controller.previousSong(
                                   listSong: widget.listSongInfo);
-                              animation.forward();
+                              animationController.forward();
                             },
                             icon: Icons.skip_previous,
                           ),
@@ -239,7 +237,7 @@ class _ReproductionPageState
                                   widget
                                       .listSongInfo[controller.faixa]?.filePath,
                                   controller.audioStore.playerState);
-                              animation.forward();
+                              animationController.forward();
                             },
                             icon: controller.audioStore.playerState ==
                                     AudioPlayerState.PLAYING
@@ -250,7 +248,7 @@ class _ReproductionPageState
                             onTap: () {
                               controller.nextSong(
                                   listSong: widget.listSongInfo);
-                              animation.forward();
+                              animationController.forward();
                             },
                             icon: Icons.skip_next,
                           ),

@@ -16,9 +16,9 @@ class AlbunsModule extends WidgetModule {
       ];
 
   @override
-  List<Router> get routers => [
-        Router(Modular.initialRoute, child: (_, args) => AlbunsPage()),
-        Router('/detailsAlbum',
+  List<ModularRouter> get routers => [
+    ModularRouter(Modular.initialRoute, child: (_, args) => AlbunsPage()),
+    ModularRouter('/detailsAlbum',
             child: (_, args) => DetailsAlbumPage(
                   albumInfo: args.data,
                 ),

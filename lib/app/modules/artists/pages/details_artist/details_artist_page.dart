@@ -25,7 +25,7 @@ class _DetailsArtistPageState
   @override
   void initState() {
     super.initState();
-    controller.getSongs(widget.artistInfo.name);
+    controller.getSongs(widget.artistInfo.id);
   }
   //use 'controller' variable to access controller
 

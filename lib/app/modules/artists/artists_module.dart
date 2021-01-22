@@ -16,9 +16,9 @@ class ArtistsModule extends WidgetModule {
       ];
 
   @override
-  List<Router> get routers => [
-        Router(Modular.initialRoute, child: (_, args) => ArtistsPage()),
-        Router('/detailsArtist',
+  List<ModularRouter> get routers => [
+    ModularRouter(Modular.initialRoute, child: (_, args) => ArtistsPage()),
+    ModularRouter('/detailsArtist',
             child: (_, args) => DetailsArtistPage(
                   artistInfo: args.data,
                 )),

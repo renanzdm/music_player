@@ -9,8 +9,8 @@ class ReproductionModule extends ChildModule {
       ];
 
   @override
-  List<Router> get routers => [
-        Router('/:indexFaixa',
+  List<ModularRouter> get routers => [
+    ModularRouter('/:indexFaixa',
             child: (_, args) => ReproductionPage(
                   indexFaixa: args.params['indexFaixa'],
                   listSongInfo: args.data,

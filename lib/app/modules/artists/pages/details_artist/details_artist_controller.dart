@@ -19,6 +19,6 @@ abstract class _DetailsArtistControllerBase with Store {
   @action
   Future<List<SongInfo>> getSongs(String artist) async {
     return listSongsFromArtist =
-        await audioQuery.getSongsFromArtist(artist: artist);
+        await audioQuery.getSongsFromArtist(artistId: artist);
   }
 }
